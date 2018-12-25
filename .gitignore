@@ -1,0 +1,27 @@
+# OS or Editor folders
+Thumbs.db
+.DS_Store
+._*
+.tmp
+.project
+.settings
+.tmproj
+*.sublime-project
+*.sublime-workspace
+.idea
+atlassian-ide-plugin.xml
+*.iml
+
+# Front-end components
+.sass-cache
+node_modules
+npm-debug.log
+/vendor
+package-lock.json
+
+# Front-end builds stuff
+dist
+release
+
+# Build files
+/content
