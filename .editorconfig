@@ -21,9 +21,5 @@ indent_size = 2
 indent_style = tab
 indent_size = 2
 
-[*.html, *.cshtml]
+[*.html]
 insert_final_newline = false
-
-[*.cshtml]
-charset = "utf-8-bom"
-indent_style = space
