@@ -1,0 +1,19 @@
+@import '~@angular/material/theming'
+
+.header
+	padding: 8px 16px
+	background: mat-color($mat-indigo, 500)
+	position: relative
+	z-index: 1
+
+	&.big
+		height: 64px
+
+	.button-row
+		text-align: right
+
+		.mat-button
+			color: rgba(255, 255, 255, 0.87)
+
+			&.mat-button--active
+				background-color: rgba(0, 0, 0 ,.12)

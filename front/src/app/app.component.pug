@@ -1,0 +1,9 @@
+app-header
+
+.content
+	router-outlet
+
+.app-loader(*ngIf='activitiesDataService.getState("isLoading")')
+	mat-progress-bar(
+		mode="indeterminate"
+	)

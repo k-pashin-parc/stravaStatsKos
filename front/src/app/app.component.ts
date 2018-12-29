@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { DeviceService } from '../device/device.service';
 
+import { ActivitiesDataService } from './../activities/activities.data.service';
+
 @Component({
 	selector: 'app-root',
-	templateUrl: './app.component.html',
+	templateUrl: 'app.component.pug',
 	styleUrls: ['./app.component.sass']
 })
 
 export class AppComponent {
-	constructor(private deviceService: DeviceService) {
-		const info = this.deviceService.getScreenInfo();
-		console.log(info);
-	}
+	constructor(private activitiesDataService: ActivitiesDataService) { }
 }
