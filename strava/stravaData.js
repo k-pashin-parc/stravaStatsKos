@@ -78,20 +78,18 @@ function formatSeason (season, key) {
 		const notQuickRides = _.filter(activities, 'is_not_quick');
 		const notQuickRidesDistance = _.sum(_.map(notQuickRides, 'distance'));
 
-		_.merge(season, {
-			quickRides: _.filter(activities, 'is_quick'),
-			quickRidesAmount: _.keys(_.groupBy(season.quickRides, 'date_display')).length,
-			quickRidesDistance: _.sum(_.map(season.quickRides, 'distance')),
-			quickRidesMovingTime: _.sum(_.map(season.quickRides, 'moving_time')),
-			quickRidesMovingSpeed: season.quickRidesDistance / season.quickRidesMovingTime,
-			quickRidesElapsedTime: getTimeToH(_.sum(_.map(season.quickRides, 'elapsed_time'))),
-			quickRidesTotalSpeed: _.round(season.quickRidesDistance / season.quickRidesElapsedTime, 1),
-			notQuickRidesMovingSpeed: _.round(notQuickRidesDistance / _.sum(_.map(notQuickRides, 'moving_time')), 1),
-			notQuickRidesTotalSpeed: _.round(notQuickRidesDistance / getTimeToH(_.sum(_.map(notQuickRides, 'elapsed_time'))), 1),
-			quickRidesDistance: _.round(season.quickRidesDistance, 1),
-			quickRidesMovingSpeed: _.round(season.quickRidesMovingSpeed, 1),
-			quickRidesElapsedTime: _.round(season.quickRidesElapsedTime, 1),
-		});
+		season.quickRides = _.filter(activities, 'is_quick');
+		season.quickRidesAmount = _.keys(_.groupBy(season.quickRides, 'date_display')).length;
+		season.quickRidesDistance = _.sum(_.map(season.quickRides, 'distance'));
+		season.quickRidesMovingTime = _.sum(_.map(season.quickRides, 'moving_time'));
+		season.quickRidesMovingSpeed = season.quickRidesDistance / season.quickRidesMovingTime;
+		season.quickRidesElapsedTime = getTimeToH(_.sum(_.map(season.quickRides, 'elapsed_time')));
+		season.quickRidesTotalSpeed = _.round(season.quickRidesDistance / season.quickRidesElapsedTime, 1);
+		season.notQuickRidesMovingSpeed = _.round(notQuickRidesDistance / _.sum(_.map(notQuickRides, 'moving_time')), 1);
+		season.notQuickRidesTotalSpeed = _.round(notQuickRidesDistance / getTimeToH(_.sum(_.map(notQuickRides, 'elapsed_time'))), 1);
+		season.quickRidesDistance = _.round(season.quickRidesDistance, 1);
+		season.quickRidesMovingSpeed = _.round(season.quickRidesMovingSpeed, 1);
+		season.quickRidesElapsedTime = _.round(season.quickRidesElapsedTime, 1);
 	}
 
 	_.merge(season, {
@@ -156,21 +154,19 @@ function formatData (allActivities) {
 			};
 		}
 
-		_.merge(activity, {
-			season: seasonName,
-			name: _.trim(activity.name),
-			date_display: formatDate(activity.start_date),
-			date: formatDateMs(activity.start_date),
-			distance: _.round(activity.distance / 1000, 1),
-			total_speed: _.round(activity.distance / (activity.elapsed_time / 60 / 60), 1),
-			rest_time: getRestTime(activity),
-			elapsed_time: activity.elapsed_time,
-			moving_time: activity.moving_time / 60 / 60,
-			moving_speed: _.round(activity.distance / activity.moving_time, 1),
-			is_quick: _.lowerCase(activity.name).includes('пляж') || _.lowerCase(activity.name).includes('набережная'),
-			is_on_base: _.lowerCase(activity.name).includes('чайк'),
-			is_not_quick: !activity.is_on_base && !activity.is_quick,
-		});
+		activity.season = seasonName;
+		activity.name = _.trim(activity.name);
+		activity.date_display = formatDate(activity.start_date);
+		activity.date = formatDateMs(activity.start_date);
+		activity.distance = _.round(activity.distance / 1000, 1);
+		activity.total_speed = _.round(activity.distance / (activity.elapsed_time / 60 / 60), 1);
+		activity.rest_time = getRestTime(activity);
+		activity.elapsed_time = activity.elapsed_time;
+		activity.moving_time = activity.moving_time / 60 / 60;
+		activity.moving_speed = _.round(activity.distance / activity.moving_time, 1);
+		activity.is_quick = _.lowerCase(activity.name).includes('пляж') || _.lowerCase(activity.name).includes('набережная');
+		activity.is_on_base = _.lowerCase(activity.name).includes('чайк');
+		activity.is_not_quick = !activity.is_on_base && !activity.is_quick;
 
 		activity = _.pick(activity, [
 			'name',
@@ -194,15 +190,18 @@ function formatData (allActivities) {
 	});
 
 	const types$ = rx.Observable.from(Object.getOwnPropertyNames(data)).map((type) => {
-		return data[type];
+		return {
+			data: data[type],
+			type: type,
+		};
 	});
 
 	types$
-		.subscribe((type) => {
-			const seasons$ = rx.Observable.from(Object.getOwnPropertyNames(type.seasons)).map((seasonName) => {
+		.subscribe((params) => {
+			const seasons$ = rx.Observable.from(Object.getOwnPropertyNames(params.data.seasons)).map((seasonName) => {
 				return {
-					type: type,
-					season: type.seasons[seasonName]
+					type: params.type,
+					season: params.data.seasons[seasonName]
 				};
 			});
 
