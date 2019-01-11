@@ -16,5 +16,6 @@ nav(
 		mat-tab-link
 		routerLink='{{selectedMenuItem.Url}}/{{subItem.Url}}'
 		routerLinkActive
-		#rla='routerLinkActive'
+		#rla='routerLinkActive',
+		[active]='rla.isActive'
 	) {{subItem.Name}}

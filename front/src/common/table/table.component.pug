@@ -1,0 +1,26 @@
+.common-table
+	.title {{title}}
+
+	mat-table.mat-elevation-z8(
+		[dataSource]='data'
+	)
+
+		ng-container(
+			*ngFor='let field of fields; let i = index;'
+			matColumnDef='{{field.fieldName}}'
+		)
+			mat-header-cell(
+				*matHeaderCellDef
+			) {{field.title}}
+
+			mat-cell(
+				*matCellDef='let element'
+			) {{element[field.fieldName]}}
+
+		mat-header-row(
+			*matHeaderRowDef='displayedColumns'
+		)
+
+		mat-row(
+			*matRowDef='let row; columns: displayedColumns;'
+		)

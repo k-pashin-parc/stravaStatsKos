@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ActivationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 import { from } from 'rxjs';
 
-interface MenuItemsChilds {
+interface MenuItems {
 	Name: string;
 	Url: string;
-}
-
-interface MenuItem {
-	Name: string;
-	Url: string;
-	Childs?: Array<MenuItemsChilds>;
+	Childs?: Array<MenuItems>;
 }
 
 @Component({
@@ -25,16 +19,16 @@ export class AppHeaderComponent implements OnInit {
 	private isShowSubmenu: boolean;
 	private selectedMenuItem: object;
 
-	private menuItems: MenuItem[] = [{
+	private menuItems: Array<MenuItems> = [{
 		Name: 'Лыжи',
 		Url: 'ski',
 		Childs: [{
 			Name: 'Общая информация',
 			Url: 'summary'
-		}, {
+		}, /*{
 			Name: 'Подробно',
 			Url: 'detail'
-		}]
+		}*/]
 	}, /*{
 		Name: 'Бег',
 		Url: 'run',

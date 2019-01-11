@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ActivitiesService {
@@ -10,6 +10,7 @@ export class ActivitiesService {
 	constructor (private http: HttpClient) { }
 
 	public getAllData()  {
-		return this.http.get(`${this.url.all}?isExampleData=false`);
+		return this.http
+			.get(`${this.url.all}?isExampleData=false`);
 	}
 }

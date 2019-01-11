@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DeviceService } from '../device/device.service';
 
 import { ActivitiesDataService } from './../activities/activities.data.service';
 

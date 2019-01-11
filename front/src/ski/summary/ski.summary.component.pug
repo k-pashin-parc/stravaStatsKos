@@ -1,0 +1,25 @@
+ng-container(*ngIf='screenState.isMobile')
+	common-table(
+		[data]='data',
+		[fields]='seasonsFields'
+		title='Дистанция, км'
+	)
+
+	common-table(
+		[data]='data',
+		[fields]='speedFields'
+		title='Скорость, км/ч'
+	)
+
+	common-table(
+		[data]='data',
+		[fields]='speedDetailFields'
+		title='Детализация скорости, км/ч'
+	)
+
+	ng-container(*ngFor='let item of data.reverse()')
+		common-table(
+			[data]='item.distanceByMonths',
+			[fields]='distanceByMonthsFields'
+			title='{{item.title}} — дистанция, км'
+		)
