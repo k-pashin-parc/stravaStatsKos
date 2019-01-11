@@ -63,16 +63,16 @@ function formatSeason (season, key) {
 	const activities = season.activities;
 	const elapsedTimeTotal = _.round(getTimeToH(_.sum(_.map(activities, 'elapsed_time'))), 2);
 	const companyRides = _.filter(activities, function (el) { return el.name.includes('(+)');	});
-	const totalDistance = _.round(_.sum(_.map(activities, 'distance')), 2);
 
 	_.merge(season, {
 		ridesAmount: _.keys(_.groupBy(activities, 'date_display')).length,
-		totalDistance: totalDistance,
+		totalDistance: _.round(_.sum(_.map(activities, 'distance')), 2),
 		elapsedTime: elapsedTimeTotal,
 		movingTime: _.round(_.sum(_.map(activities, 'moving_time')), 2),
-		movingSpeed: _.round(totalDistance / season.movingTime, 1),
-		totalSpeed: _.round(totalDistance / season.elapsedTime, 1),
 	});
+
+	season.movingSpeed = _.round(season.totalDistance / season.movingTime, 1);
+	season.totalSpeed = _.round(season.totalDistance / season.elapsedTime, 1);
 
 	if (key === 'Ski') {
 		const notQuickRides = _.filter(activities, 'is_not_quick');
