@@ -4,7 +4,7 @@ var stravaData = require('../strava/stravaData'),
 function mainStatsRoute (app) {
 	app
 		.get('/', function (req, res) {
-			res.sendFile('index.html');
+			res.sendFile('/index.html');
 		})
 		.get('/api/summary', function (req, res) {
 			stravaData.init();

@@ -104,7 +104,7 @@ function formatSeason (season, key) {
 	months$.subscribe((i) => {
 		const monthActivities = _.filter(activities, function (el) {
 			return moment(el.date).format('MM') == i;
-		})
+		});
 
 		let index;
 
@@ -117,10 +117,12 @@ function formatSeason (season, key) {
 				value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
 			});
 		}
-});
+	});
 
 	if (key === 'Ski') {
-		season.distanceByMonths = _.sortBy(season.distanceByMonths, 'index');
+		season.distanceByMonths = _.sortBy(season.distanceByMonths, (el) => {
+			return -el.index;
+		});
 	}
 
 	_.unset(season, 'activities');
@@ -208,8 +210,13 @@ function formatData (allActivities) {
 			seasons$.subscribe((params) => {
 				formatSeason(params.season, params.type);
 			});
+		});
 
-			type.seasons = _.values(type.seasons);
+	const typeNames$ = rx.Observable.from(Object.getOwnPropertyNames(data));
+
+	typeNames$
+		.subscribe(typeName => {
+			data[typeName].seasons = _.values(data[typeName].seasons);
 		});
 
 	return data;
