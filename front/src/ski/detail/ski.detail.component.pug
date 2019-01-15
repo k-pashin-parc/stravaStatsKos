@@ -1,4 +1,14 @@
 ng-container(*ngIf='screenState.isMobile')
+	.filter
+		.filter_item(
+			*ngFor='let item of skiActivitiesTypes trackBy $index;'
+		)
+			mat-checkbox(
+				(change)='filter()',
+				[(ngModel)]='item.isSelected'
+			) {{item.name}}
+
+
 	common-table(
 		[data]='data',
 		[fields]='mobileFields'
