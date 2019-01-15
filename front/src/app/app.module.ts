@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { AppHeaderComponent } from '../header/header.component';
 import { SkiSummaryComponent } from './../ski/summary/ski.summary.component';
 import { ActivitiesService } from './../activities/activities.service';
+import { SkiDetailComponent } from './../ski/detail/ski.detail.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		AppHeaderComponent,
 		SkiSummaryComponent,
+		SkiDetailComponent,
 	],
 	imports: [
 		BrowserModule,

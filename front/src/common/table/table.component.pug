@@ -1,4 +1,4 @@
-.common-table
+.common-table(class='{{classes}}')
 	.title {{title}}
 
 	mat-table.mat-elevation-z8(
@@ -15,7 +15,10 @@
 
 			mat-cell(
 				*matCellDef='let element'
-			) {{element[field.fieldName]}}
+			)
+				span(
+					[innerHtml]='element[field.fieldName] | tableFieldFormatter: element: field.type'
+				)
 
 		mat-header-row(
 			*matHeaderRowDef='displayedColumns'

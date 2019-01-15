@@ -10,6 +10,7 @@ export class TableComponent implements OnInit {
 	@Input() private data;
 	@Input() private fields;
 	@Input() private title;
+	@Input() private classes;
 
 	private displayedColumns;
 

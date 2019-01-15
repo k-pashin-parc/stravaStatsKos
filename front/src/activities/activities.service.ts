@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { ExamplatData } from '../config/data.config';
 
 @Injectable()
 export class ActivitiesService {
@@ -9,8 +12,8 @@ export class ActivitiesService {
 
 	constructor (private http: HttpClient) { }
 
-	public getAllData()  {
+	public getAllData(): Observable<object> {
 		return this.http
-			.get(`${this.url.all}?isExampleData=false`);
+			.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}`);
 	}
 }

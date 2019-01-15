@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SkiSummaryComponent } from '../ski/summary/ski.summary.component';
+import { SkiDetailComponent } from '../ski/detail/ski.detail.component';
 
 import { ActivitiesResolveService } from '../activities/activities.resolve.service';
 import { ActivitiesDataService } from '../activities/activities.data.service';
@@ -26,7 +27,7 @@ const routes: Routes = [{
 		},
 	}, {
 		path: 'detail',
-		component: SkiSummaryComponent,
+		component: SkiDetailComponent,
 		resolve: {
 			data: ActivitiesResolveService
 		},

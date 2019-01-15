@@ -8,22 +8,24 @@ import { MatTableModule } from '@angular/material/table';
 
 import { TableComponent } from './table/table.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { TableFieldFormatterPipe } from './table/table.field_formatter.pipe';
 
 @NgModule({
 	declarations: [
 		TableComponent,
-
+		TableFieldFormatterPipe,
 	],
 	imports: [
 		BrowserModule,
 		MatTableModule,
-		DeviceDetectorModule.forRoot()
+		DeviceDetectorModule.forRoot(),
 	],
 	exports: [
 		MatButtonModule,
 		MatProgressBarModule,
 		MatTabsModule,
 		TableComponent,
+		TableFieldFormatterPipe,
 	],
 	providers: []
 })

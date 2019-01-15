@@ -7,7 +7,7 @@ import { ActivitiesService } from './activities.service';
 
 @Injectable()
 export class ActivitiesDataService {
-	private activities = [];
+	private activities: object[];
 
 	private state = {
 		isInited: false,
@@ -19,10 +19,10 @@ export class ActivitiesDataService {
 
 		return this.activitiesService.getAllData()
 			.pipe(
-				map((response: any) => {
+				map((response: object) => {
 					this.state.isInited = true;
 					this.state.isLoading = false;
-					this.setActivities(response.data);
+					this.setActivities(response['data']);
 				}),
 				catchError((error) => {
 					alert(error.error);
@@ -33,16 +33,16 @@ export class ActivitiesDataService {
 			);
 	}
 
-	public setActivities (data) {
+	public setActivities (data: object[]): void {
 		this.state.isInited = true;
 		this.activities = data;
 	}
 
-	public getActivities (field?: string) {
+	public getActivities (field?: string): any {
 		return field ? this.activities[field] : this.activities;
 	}
 
-	public getState (key?: string) {
+	public getState (key?: string): object {
 		return key ? this.state[key] : this.state;
 	}
 

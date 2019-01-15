@@ -12,49 +12,37 @@ export class SkiSummaryComponent implements OnInit {
 	private data;
 
 	private seasonsFields: Array<FieldConfig> = [{
-		title: 'сезон',
+		title: 'Сезон',
 		fieldName: 'titleShort'
 	}, {
-		title: 'S',
-		fieldName: 'totalDistance'
-	}, {
-		title: 'S комп.',
-		fieldName: 'companyRidesDistance'
+		title: 'S, км',
+		fieldName: 'distanceConcat'
 	}];
 
 	private speedFields: Array<FieldConfig> = [{
-		title: 'сезон',
+		title: 'Сезон',
 		fieldName: 'titleShort'
 	}, {
-		title: 'в движ.',
-		fieldName: 'movingSpeed'
-	}, {
-		title: 'общ.',
-		fieldName: 'totalSpeed'
+		title: 'V, км/ч',
+		fieldName: 'speedConcat'
 	}];
 
 	private speedDetailFields: Array<FieldConfig> = [{
-		title: 'сезон',
+		title: 'Сезон',
 		fieldName: 'titleShort'
 	}, {
-		title: 'за Волгу',
-		fieldName: 'notQuickRidesMovingSpeed'
+		title: 'Волга, км/ч',
+		fieldName: 'quickRidesSpeedConcat'
 	}, {
-		title: 'общ.',
-		fieldName: 'notQuickRidesTotalSpeed'
-	}, {
-		title: 'по пляжу',
-		fieldName: 'quickRidesMovingSpeed'
-	}, {
-		title: 'общ.',
-		fieldName: 'quickRidesTotalSpeed'
+		title: 'Пляж, км/ч',
+		fieldName: 'notQuickRidesSpeedConcat'
 	}];
 
 	private distanceByMonthsFields: Array<FieldConfig> = [{
-		title: 'месяц',
+		title: 'Месяц',
 		fieldName: 'title'
 	}, {
-		title: 'S',
+		title: 'S, км',
 		fieldName: 'value'
 	}];
 
@@ -69,10 +57,16 @@ export class SkiSummaryComponent implements OnInit {
 		this.screenState = this.deviceService.getScreenInfo();
 		this.data = this.activitiesDataService.getActivities('Ski')['seasons'];
 
-		this.data.forEach(el => {
-			const arr = el.title.split('/');
+		if (this.screenState.isMobile) {
+			this.data.forEach(el => {
+				const arr = el.title.split('/');
 
-			el.titleShort = `${arr[0].substring(2, 4)}/${arr[1].substring(2, 4)}`;
-		});
+				el.titleShort = `${arr[0].substring(2, 4)}/${arr[1].substring(2, 4)}`;
+				el.distanceConcat = `${el.totalDistance} (${el.companyRidesDistance})`;
+				el.speedConcat = `${el.movingSpeed} (${el.totalSpeed})`;
+				el.notQuickRidesSpeedConcat = `${el.notQuickRidesMovingSpeed} (${el.notQuickRidesTotalSpeed})`;
+				el.quickRidesSpeedConcat = `${el.quickRidesMovingSpeed} (${el.quickRidesTotalSpeed})`;
+			});
+		}
 	}
 }

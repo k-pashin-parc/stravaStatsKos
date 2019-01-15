@@ -25,10 +25,10 @@ export class AppHeaderComponent implements OnInit {
 		Childs: [{
 			Name: 'Общая информация',
 			Url: 'summary'
-		}, /*{
+		}, {
 			Name: 'Подробно',
 			Url: 'detail'
-		}*/]
+		}]
 	}, /*{
 		Name: 'Бег',
 		Url: 'run',

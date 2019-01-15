@@ -4,3 +4,18 @@
 .title
 	color: rgba(0, 0, 0, .54)
 	margin-bottom: 16px
+
+.mat-cell,
+.mat-header-cell
+	padding-top: 8px
+	padding-bottom: 8px
+	padding-right: 8px
+	box-sizing: border-box
+
+@media only screen and (max-width: 700px)
+	.small_table
+		.cdk-column-elapsed_time
+			display: none
+
+		.cdk-column-rest_time
+			display: none
