@@ -21,7 +21,8 @@ export class SkiDetailComponent implements OnInit {
 
 	private mobileFields: Array<FieldConfig> = [{
 		title: 'Название',
-		fieldName: 'name'
+		fieldName: 'name',
+		type: 'link'
 	}, {
 		title: 'S, км',
 		fieldName: 'distance'
@@ -76,12 +77,13 @@ export class SkiDetailComponent implements OnInit {
 
 	ngOnInit () {
 		this.screenState = this.deviceService.getScreenInfo();
-		this.data = this.activitiesDataService.getActivities('Ski')['activities'];
+		this.data = this.activitiesDataService.getData('general.Ski.activities');
 		this.originalData = [...this.data];
 
 		if (this.screenState.isMobile) {
 			this.data.forEach((el: any) => {
 				el.speedConcat = `${el.moving_speed} (${el.total_speed})`;
+				el.url = `/splits/${el.id}`;
 			});
 		}
 	}

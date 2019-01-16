@@ -16,9 +16,17 @@
 			mat-cell(
 				*matCellDef='let element'
 			)
-				span(
-					[innerHtml]='element[field.fieldName] | tableFieldFormatter: element: field.type'
-				)
+				span([ngSwitch]='field.type')
+					span(*ngSwitchCase="'link'")
+						a.link(
+							[routerLink]='element.url'
+							target='_blank'
+						) {{element[field.fieldName]}}
+
+					span(*ngSwitchCase="'time'")
+						span([innerHtml]='element[field.fieldName] | tableTimeFieldFormatter')
+
+					span(*ngSwitchDefault) {{element[field.fieldName]}}
 
 		mat-header-row(
 			*matHeaderRowDef='displayedColumns'

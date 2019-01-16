@@ -1,5 +1,9 @@
-.header.mat-elevation-z6
-	.button-row
+.header.mat-elevation-z6(
+	[ngClass]='{"big": isHideMenu}'
+)
+	.title {{headerTitle.getTitle()}}
+
+	.button-row(*ngIf='!isHideMenu')
 		a.mat-button(
 			*ngFor='let item of menuItems'
 			mat-button

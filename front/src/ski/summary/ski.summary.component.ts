@@ -55,7 +55,7 @@ export class SkiSummaryComponent implements OnInit {
 
 	ngOnInit () {
 		this.screenState = this.deviceService.getScreenInfo();
-		this.data = this.activitiesDataService.getActivities('Ski')['seasons'];
+		this.data = this.activitiesDataService.getData('general.Ski.seasons');
 
 		if (this.screenState.isMobile) {
 			this.data.forEach(el => {

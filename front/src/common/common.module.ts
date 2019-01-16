@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -10,18 +11,19 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { TableComponent } from './table/table.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
-import { TableFieldFormatterPipe } from './table/table.field_formatter.pipe';
+import { TableTimeFieldFormatterPipe } from './table/table.time_field_formatter.pipe';
 
 @NgModule({
 	declarations: [
 		TableComponent,
-		TableFieldFormatterPipe,
+		TableTimeFieldFormatterPipe,
 	],
 	imports: [
 		BrowserModule,
 		DeviceDetectorModule.forRoot(),
 		MatTableModule,
 		MatCheckboxModule,
+		RouterModule
 	],
 	exports: [
 		FormsModule,
@@ -29,7 +31,7 @@ import { TableFieldFormatterPipe } from './table/table.field_formatter.pipe';
 		MatProgressBarModule,
 		MatTabsModule,
 		TableComponent,
-		TableFieldFormatterPipe,
+		TableTimeFieldFormatterPipe,
 		MatCheckboxModule,
 	],
 	providers: []

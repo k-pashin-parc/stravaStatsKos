@@ -7,13 +7,23 @@ import { ExamplatData } from '../config/data.config';
 @Injectable()
 export class ActivitiesService {
 	private url = {
-		all: '/api/summary'
+		all: '/api/summary',
+		splits: '/api/splits',
 	};
 
 	constructor (private http: HttpClient) { }
 
-	public getAllData(): Observable<object> {
+	getAllData(): Observable<object> {
 		return this.http
 			.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}`);
+	}
+
+	getSplits(id): Observable<object> {
+		return this.http
+			.get(this.url.splits, {
+				params: {
+					id: id
+				}
+			});
 	}
 }

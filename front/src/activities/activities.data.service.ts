@@ -2,19 +2,23 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { ActivitiesService } from './activities.service';
 
 @Injectable()
 export class ActivitiesDataService {
-	private activities: object[];
+	private data = {
+		general: [],
+		splits: {}
+	};
 
 	private state = {
 		isInited: false,
 		isLoading: false,
 	};
 
-	public init () {
+	init (): Observable<object> {
 		this.state.isLoading = true;
 
 		return this.activitiesService.getAllData()
@@ -22,7 +26,9 @@ export class ActivitiesDataService {
 				map((response: object) => {
 					this.state.isInited = true;
 					this.state.isLoading = false;
-					this.setActivities(response['data']);
+					this.data.general = response['data'];
+
+					return response;
 				}),
 				catchError((error) => {
 					alert(error.error);
@@ -33,17 +39,47 @@ export class ActivitiesDataService {
 			);
 	}
 
-	public setActivities (data: object[]): void {
-		this.state.isInited = true;
-		this.activities = data;
+	getData (path: string): any {
+		let res = this.data;
+
+		const keys = path.split('.');
+
+		for (let i = 0, length = keys.length; i < length; i++) {
+			const key = keys[i];
+
+			res = res[key];
+
+			if (typeof res === 'undefined') {
+				break;
+			}
+		}
+
+		return res;
 	}
 
-	public getActivities (field?: string): any {
-		return field ? this.activities[field] : this.activities;
-	}
-
-	public getState (key?: string): object {
+	getState (key?: string): object {
 		return key ? this.state[key] : this.state;
+	}
+
+	getSplits (id): Observable<object> {
+		this.state.isLoading = true;
+
+		return this.activitiesService
+			.getSplits(id)
+			.pipe(
+				map((response: object) => {
+					this.state.isLoading = false;
+					this.data.splits = response;
+
+					return response;
+				}),
+				catchError((error) => {
+					alert(error.error);
+					this.state.isLoading = false;
+
+					return throwError('Something gone wrong again.');
+				})
+			);
 	}
 
 	constructor(private activitiesService: ActivitiesService) { }
