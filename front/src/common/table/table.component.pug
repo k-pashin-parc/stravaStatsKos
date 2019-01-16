@@ -24,7 +24,7 @@
 						) {{element[field.fieldName]}}
 
 					span(*ngSwitchCase="'time'")
-						span([innerHtml]='element[field.fieldName] | tableTimeFieldFormatter')
+						span([innerHtml]='element[field.fieldName] | tableTimeFieldFormatter: isWithoutSeconds')
 
 					span(*ngSwitchDefault) {{element[field.fieldName]}}
 
