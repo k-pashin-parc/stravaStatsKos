@@ -32,10 +32,10 @@ export class SkiSummaryComponent implements OnInit {
 		fieldName: 'titleShort'
 	}, {
 		title: 'Волга, км/ч',
-		fieldName: 'quickRidesSpeedConcat'
+		fieldName: 'notQuickRidesSpeedConcat'
 	}, {
 		title: 'Пляж, км/ч',
-		fieldName: 'notQuickRidesSpeedConcat'
+		fieldName: 'quickRidesSpeedConcat'
 	}];
 
 	private distanceByMonthsFields: Array<FieldConfig> = [{
