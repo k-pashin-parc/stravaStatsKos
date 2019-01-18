@@ -39,6 +39,29 @@ export class SkiDetailComponent implements OnInit {
 		type: 'time'
 	}];
 
+	private generalFields: Array<FieldConfig> = [{
+		title: 'Название',
+		fieldName: 'name',
+		type: 'link'
+	}, {
+		title: 'Расстояние, км',
+		fieldName: 'distance',
+	}, {
+		title: 'Скор. в движ., км/ч',
+		fieldName: 'moving_speed',
+	}, {
+		title: 'Время',
+		fieldName: 'elapsed_time',
+		type: 'time'
+	}, {
+		title: 'Отдых',
+		fieldName: 'rest_time',
+		type: 'time'
+	}, {
+		title: 'Дата',
+		fieldName: 'date_display',
+	}];
+
 	private skiActivitiesTypes: Array<SkiActivityType> = [{
 		name: 'Заволга',
 		field: 'is_not_quick',
@@ -80,11 +103,9 @@ export class SkiDetailComponent implements OnInit {
 		this.data = this.activitiesDataService.getData('general.Ski.activities');
 		this.originalData = [...this.data];
 
-		if (this.screenState.isMobile) {
-			this.data.forEach((el: any) => {
-				el.speedConcat = `${el.moving_speed} (${el.total_speed})`;
-				el.url = `/splits/${el.id}`;
-			});
-		}
+		this.data.forEach((el: any) => {
+			el.speedConcat = `${el.moving_speed} (${el.total_speed})`;
+			el.url = `/splits/${el.id}`;
+		});
 	}
 }

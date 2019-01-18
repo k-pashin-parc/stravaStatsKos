@@ -19,7 +19,7 @@
 				span([ngSwitch]='field.type')
 					span(*ngSwitchCase="'link'")
 						a.link(
-							[routerLink]='element.url'
+							[href]='element.url'
 							target='_blank'
 						) {{element[field.fieldName]}}
 

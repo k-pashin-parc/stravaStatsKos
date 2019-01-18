@@ -8,22 +8,25 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
 import { TableComponent } from './table/table.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { TableTimeFieldFormatterPipe } from './table/table.time_field_formatter.pipe';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
 	declarations: [
 		TableComponent,
 		TableTimeFieldFormatterPipe,
+		ChartComponent,
 	],
 	imports: [
 		BrowserModule,
 		DeviceDetectorModule.forRoot(),
 		MatTableModule,
 		MatCheckboxModule,
-		RouterModule
+		RouterModule,
+		NgxChartsModule,
 	],
 	exports: [
 		FormsModule,
@@ -33,6 +36,8 @@ import { TableTimeFieldFormatterPipe } from './table/table.time_field_formatter.
 		TableComponent,
 		TableTimeFieldFormatterPipe,
 		MatCheckboxModule,
+		NgxChartsModule,
+		ChartComponent,
 	],
 	providers: []
 })

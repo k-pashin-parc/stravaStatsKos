@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 import { HeaderTitleService } from './../common/header_title/header.title.service';
+import { DeviceService } from './../common/device/device.service';
 
 interface MenuItems {
 	Name: string;
@@ -28,6 +29,9 @@ export class AppHeaderComponent implements OnInit {
 		Url: 'ski',
 		Childs: [{
 			Name: 'Общая информация',
+			Url: 'summaryChart'
+		}, {
+			Name: 'Общая информация',
 			Url: 'summary'
 		}, {
 			Name: 'Подробно',
@@ -38,10 +42,21 @@ export class AppHeaderComponent implements OnInit {
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
-		private headerTitle: HeaderTitleService
+		private headerTitle: HeaderTitleService,
+		private deviceService: DeviceService
 	) {}
 
 	ngOnInit () {
+		const isMobile = this.deviceService.getScreenInfo().isMobile;
+
+		this.menuItems = this.menuItems.filter(el => {
+			el.Childs = el.Childs.filter(child => {
+				return child.Url !== (isMobile ? 'summaryChart' : 'summary');
+			});
+
+			return el;
+		});
+
 		this.router.events.pipe(
 			filter((event) => event instanceof ActivationStart)
 		)

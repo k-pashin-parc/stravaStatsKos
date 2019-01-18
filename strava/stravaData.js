@@ -99,7 +99,11 @@ function formatSeason (season, key) {
 		distanceByMonths: [],
 	});
 
-	const months$ = rx.Observable.range(1, 12);
+	const months$ = rx.Observable
+		.range(1, 12)
+		.filter(month => {
+			return (key === 'Ski' ? (month <= 4 || month >= 11) : month);
+		});
 
 	months$.subscribe((i) => {
 		const monthActivities = _.filter(activities, function (el) {
@@ -108,20 +112,18 @@ function formatSeason (season, key) {
 
 		let index;
 
-		if (monthActivities.length) {
-			index = key === 'Ski' && i > 9 ? i - 13 : i;
+		index = key === 'Ski' && i > 9 ? i - 13 : i;
 
-			season.distanceByMonths.push({
-				index: index,
-				title: moment(i, 'M').format('MMMM'),
-				value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
-			});
-		}
+		season.distanceByMonths.push({
+			index: index,
+			name: moment(i, 'M').format('MMMM'),
+			value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
+		});
 	});
 
 	if (key === 'Ski') {
 		season.distanceByMonths = _.sortBy(season.distanceByMonths, (el) => {
-			return -el.index;
+			return el.index;
 		});
 	}
 

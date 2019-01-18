@@ -7,6 +7,8 @@ import { ActivitiesResolveService } from '../activities/activities.resolve.servi
 import { ActivitiesDataService } from '../activities/activities.data.service';
 import { SplitsComponent } from '../splits/splits.component';
 import { ActivitiesSplitsResolveService } from './../activities/activities.splits.resolve.service';
+import { ChartGuard } from './app.chart.guard';
+import { SkiChartComponent } from './../ski/chart/ski.chart.component';
 
 const routes: Routes = [
 	{
@@ -20,14 +22,21 @@ const routes: Routes = [
 		},
 		children: [{
 			path: '',
-			redirectTo: 'summary',
+			redirectTo: 'summaryChart',
 			pathMatch: 'full'
+		}, {
+			path: 'summaryChart',
+			component: SkiChartComponent,
+			resolve: {
+				data: ActivitiesResolveService
+			},
+			canActivate: [ChartGuard]
 		}, {
 			path: 'summary',
 			component: SkiSummaryComponent,
 			resolve: {
 				data: ActivitiesResolveService
-			},
+			}
 		}, {
 			path: 'detail',
 			component: SkiDetailComponent,

@@ -1,0 +1,22 @@
+.chart
+	.legend(*ngIf='chartConfig.showCustomLegend')
+		.item(*ngFor='let item of legend')
+			.ico([ngStyle]='item.style')
+			.label {{item.name}}
+
+	ngx-charts-bar-vertical-2d(
+		[view]='chartConfig.view',
+		[scheme]='chartConfig.colorScheme',
+		[results]='chartData',
+		[xAxis]='chartConfig.showXAxis',
+		[yAxis]='chartConfig.showYAxis',
+		[legend]='chartConfig.showLegend',
+		[showXAxisLabel]='chartConfig.showXAxisLabel',
+		[showYAxisLabel]='chartConfig.showYAxisLabel',
+		[xAxisLabel]='chartConfig.xAxisLabel',
+		[yAxisLabel]='chartConfig.yAxisLabel',
+		[legendTitle]='chartConfig.legendTitle',
+		[roundEdges]='chartConfig.roundEdges',
+		roundDomains='true',
+		[customColors]='chartConfig.customColors'
+	)
