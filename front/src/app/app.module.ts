@@ -25,9 +25,9 @@ import { SkiChartComponent } from './../ski/chart/ski.chart.component';
 	imports: [
 		BrowserModule,
 		HttpClientModule,
-		AppRoutingModule,
 		CommonModule,
 		BrowserAnimationsModule,
+		AppRoutingModule,
 	],
 	exports: [],
 	providers: [
