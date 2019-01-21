@@ -39,7 +39,7 @@ export class SkiSummaryComponent implements OnInit {
 
 	private distanceByMonthsFields: Array<FieldConfig> = [{
 		title: 'Месяц',
-		fieldName: 'title'
+		fieldName: 'name'
 	}, {
 		title: 'S, км',
 		fieldName: 'value'
@@ -61,6 +61,7 @@ export class SkiSummaryComponent implements OnInit {
 			el.speedConcat = `${el.movingSpeed} (${el.totalSpeed})`;
 			el.notQuickRidesSpeedConcat = `${el.notQuickRidesMovingSpeed} (${el.notQuickRidesTotalSpeed})`;
 			el.quickRidesSpeedConcat = `${el.quickRidesMovingSpeed} (${el.quickRidesTotalSpeed})`;
+			el.distanceByMonths = el.distanceByMonths.filter(month => month.value > 0);
 		});
 	}
 }
