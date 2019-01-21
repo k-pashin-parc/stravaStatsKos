@@ -22,6 +22,9 @@
 							[routerLink]='element.url'
 							target='_blank'
 						) {{element[field.fieldName]}}
+						.additional_field(
+							*ngIf='field.additionalField'
+						) {{element[field.additionalField.fieldName]}}
 
 					span(*ngSwitchCase="'time'")
 						span([innerHtml]='element[field.fieldName] | tableTimeFieldFormatter: isWithoutSeconds')

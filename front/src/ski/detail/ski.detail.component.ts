@@ -22,7 +22,10 @@ export class SkiDetailComponent implements OnInit {
 	private mobileFields: Array<FieldConfig> = [{
 		title: 'Название',
 		fieldName: 'name',
-		type: 'link'
+		type: 'link',
+		additionalField: {
+			fieldName: 'date_display'
+		}
 	}, {
 		title: 'S, км',
 		fieldName: 'distance'
