@@ -19,12 +19,24 @@
 				span([ngSwitch]='field.type')
 					span(*ngSwitchCase="'link'")
 						a.link(
-							[routerLink]='element.url'
+							[href]='element.url'
 							target='_blank'
 						) {{element[field.fieldName]}}
+
 						.additional_field(
 							*ngIf='field.additionalField'
 						) {{element[field.additionalField.fieldName]}}
+
+						div(
+							*ngIf='field.additionalLinks'
+						)
+							.additional_link(
+								*ngFor='let additionalLink of field.additionalLinks;'
+							)
+								a.link(
+									routerLink='{{additionalLink.url}}/{{element.id}}'
+									target='_blank'
+								) {{additionalLink.name}}
 
 					span(*ngSwitchCase="'time'")
 						span([innerHtml]='element[field.fieldName] | tableTimeFieldFormatter: isWithoutSeconds')

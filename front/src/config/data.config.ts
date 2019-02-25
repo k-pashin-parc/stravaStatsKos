@@ -1,3 +1,3 @@
 export const ExamplatData = {
-	isExampleData: false
+	isExampleData: true
 };

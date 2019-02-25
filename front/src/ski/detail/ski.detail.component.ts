@@ -25,7 +25,11 @@ export class SkiDetailComponent implements OnInit {
 		type: 'link',
 		additionalField: {
 			fieldName: 'date_display'
-		}
+		},
+		additionalLinks: [{
+			name: 'скорости',
+			url: '/splits'
+		}],
 	}, {
 		title: 'S, км',
 		fieldName: 'distance'
@@ -45,7 +49,11 @@ export class SkiDetailComponent implements OnInit {
 	private generalFields: Array<FieldConfig> = [{
 		title: 'Название',
 		fieldName: 'name',
-		type: 'link'
+		type: 'link',
+		additionalLinks: [{
+			name: 'скорости',
+			url: '/splits'
+		}],
 	}, {
 		title: 'Расстояние, км',
 		fieldName: 'distance',
@@ -108,7 +116,7 @@ export class SkiDetailComponent implements OnInit {
 
 		this.data.forEach((el: any) => {
 			el.speedConcat = `${el.moving_speed} (${el.total_speed})`;
-			el.url = `/splits/${el.id}`;
+			el.url = `http://strava.com/activities/${el.id}`;
 		});
 	}
 }
