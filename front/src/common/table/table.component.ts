@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { FieldConfig } from './../../config/table.config';
 
 @Component({
@@ -15,9 +15,23 @@ export class TableComponent implements OnInit {
 	@Input() private classes: string;
 	@Input() private isWithoutSeconds: boolean;
 
+	@ViewChild(MatSort) sort: MatSort;
+
 	private displayedColumns;
+	private dataSource: MatTableDataSource<{}>;
 
 	ngOnInit () {
+		this.dataSource = new MatTableDataSource(this.data);
+		this.dataSource.sort = this.sort;
+
+		this.dataSource.sortingDataAccessor = (item, property) => {
+			const fields = {
+				'date_display': 'date'
+			};
+
+			return item[fields[property] || property];
+		};
+
 		this.displayedColumns = this.fields.map(el => {
 			return el.fieldName;
 		});

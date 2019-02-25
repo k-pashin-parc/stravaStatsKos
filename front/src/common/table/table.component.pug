@@ -2,7 +2,8 @@
 	.title {{title}}
 
 	mat-table.mat-elevation-z8(
-		[dataSource]='data'
+		[dataSource]='dataSource'
+		matSort
 	)
 
 		ng-container(
@@ -11,6 +12,7 @@
 		)
 			mat-header-cell(
 				*matHeaderCellDef
+				mat-sort-header
 			) {{field.title}}
 
 			mat-cell(

@@ -13,6 +13,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { TableTimeFieldFormatterPipe } from './table/table.time_field_formatter.pipe';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartComponent } from './chart/chart.component';
+import { MatSortModule } from '@angular/material';
 
 @NgModule({
 	declarations: [
@@ -27,6 +28,7 @@ import { ChartComponent } from './chart/chart.component';
 		MatCheckboxModule,
 		RouterModule,
 		NgxChartsModule,
+		MatSortModule,
 	],
 	exports: [
 		FormsModule,
@@ -38,6 +40,7 @@ import { ChartComponent } from './chart/chart.component';
 		MatCheckboxModule,
 		NgxChartsModule,
 		ChartComponent,
+		MatSortModule,
 	],
 	providers: []
 })
