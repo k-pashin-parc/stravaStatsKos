@@ -15,14 +15,16 @@ import { BikeSummaryComponent } from './../bike/summary/bike.summary.component';
 import { RunSummaryComponent } from 'src/run/summary/run.summary.component';
 import { RunChartComponent } from 'src/run/chart/run.chart.component';
 import { RunDetailComponent } from 'src/run/detail/run.detail.component';
+import { DefaultRouteCongif } from 'src/config/default_route.config';
 
 const routes: Routes = [
-	// ski
 	{
 		path: '',
 		pathMatch: 'full',
-		redirectTo: 'ski'
+		redirectTo: DefaultRouteCongif.route,
 	},
+
+	// ski
 	{
 		path: 'ski',
 		data: {
