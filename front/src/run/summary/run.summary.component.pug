@@ -4,18 +4,6 @@ common-table(
 	title='Дистанция'
 )
 
-common-table(
-	[data]='data',
-	[fields]='speedFields'
-	title='Скорость'
-)
-
-common-table(
-	[data]='data',
-	[fields]='speedDetailSkiFields'
-	title='Скорости'
-)
-
 ng-container(*ngFor='let item of data.reverse()')
 	common-table(
 		[data]='item.distanceByMonths',

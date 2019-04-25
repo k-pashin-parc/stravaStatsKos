@@ -3,15 +3,15 @@ import { ActivitiesDataService } from './../../activities/activities.data.servic
 import { SummaryComponent } from 'src/summary/summary.component';
 
 @Component({
-	selector: 'ski-summary',
-	templateUrl: 'ski.summary.component.pug',
+	selector: 'run-summary',
+	templateUrl: 'run.summary.component.pug',
 })
-export class SkiSummaryComponent extends SummaryComponent {
+export class RunSummaryComponent extends SummaryComponent {
 	constructor (
 		activitiesDataService: ActivitiesDataService,
 	) {
 		super(
-			'Ski',
+			'Run',
 			activitiesDataService,
 		);
 	}

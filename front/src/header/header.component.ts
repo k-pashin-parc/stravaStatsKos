@@ -24,20 +24,62 @@ export class AppHeaderComponent implements OnInit {
 	private isHideMenu: boolean;
 	private title;
 
-	private menuItems: Array<MenuItems> = [{
-		Name: 'Лыжи',
-		Url: 'ski',
-		Childs: [{
-			Name: 'Общая информация',
-			Url: 'summaryChart'
-		}, {
-			Name: 'Общая информация',
-			Url: 'summary'
-		}, {
-			Name: 'Подробно',
-			Url: 'detail'
-		}]
-	}];
+	private menuItems: Array<MenuItems> = [
+		{
+			Name: 'Лыжи',
+			Url: 'ski',
+			Childs: [
+				{
+					Name: 'Общая информация',
+					Url: 'summaryChart'
+				},
+				{
+					Name: 'Общая информация',
+					Url: 'summary'
+				},
+				{
+					Name: 'Подробно',
+					Url: 'detail'
+				},
+			]
+		},
+		{
+			Name: 'Бег',
+			Url: 'run',
+			Childs: [
+				{
+					Name: 'Общая информация',
+					Url: 'summaryChart'
+				},
+				{
+					Name: 'Общая информация',
+					Url: 'summary'
+				},
+				{
+					Name: 'Подробно',
+					Url: 'detail'
+				},
+			]
+		},
+		{
+			Name: 'Вел',
+			Url: 'bike',
+			Childs: [
+				{
+					Name: 'Общая информация',
+					Url: 'summaryChart'
+				},
+				{
+					Name: 'Общая информация',
+					Url: 'summary'
+				},
+				{
+					Name: 'Подробно',
+					Url: 'detail'
+				},
+			]
+		},
+	];
 
 	constructor(
 		private router: Router,

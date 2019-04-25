@@ -5,8 +5,8 @@ import { scan } from 'rxjs/operators';
 import { from } from 'rxjs';
 
 interface SkiChartConfigItem {
-	data: Array<object>;
-	config: object;
+	data: Array<{}>;
+	config: {};
 }
 
 interface SkiChartConfig {
@@ -21,7 +21,7 @@ interface SkiChartConfig {
 	templateUrl: 'ski.chart.component.pug',
 })
 export class SkiChartComponent implements OnInit {
-	private chart: SkiChartConfig = {
+	chart: SkiChartConfig = {
 		distance: {
 			data: [],
 			config: {}

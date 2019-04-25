@@ -12,6 +12,12 @@ import { ActivitiesService } from './../activities/activities.service';
 import { SkiDetailComponent } from './../ski/detail/ski.detail.component';
 import { SplitsComponent } from './../splits/splits.component';
 import { SkiChartComponent } from './../ski/chart/ski.chart.component';
+import { BikeChartComponent } from './../bike/chart/bike.chart.component';
+import { BikeDetailComponent } from 'src/bike/detail/bike.detail.component';
+import { BikeSummaryComponent } from './../bike/summary/bike.summary.component';
+import { RunSummaryComponent } from 'src/run/summary/run.summary.component';
+import { RunChartComponent } from 'src/run/chart/run.chart.component';
+import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +27,12 @@ import { SkiChartComponent } from './../ski/chart/ski.chart.component';
 		SkiDetailComponent,
 		SplitsComponent,
 		SkiChartComponent,
+		BikeChartComponent,
+		BikeDetailComponent,
+		BikeSummaryComponent,
+		RunSummaryComponent,
+		RunChartComponent,
+		RunDetailComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -90,6 +90,7 @@ function formatSeason (season, key) {
 		season.quickRidesDistance = _.round(season.quickRidesDistance, 1);
 		season.quickRidesMovingSpeed = _.round(season.quickRidesMovingSpeed, 1);
 		season.quickRidesElapsedTime = _.round(season.quickRidesElapsedTime, 1);
+		season.onBaseDistance = _.sum(_.map(_.filter(activities, 'is_on_base'), 'distance'));
 	}
 
 	_.merge(season, {
@@ -114,11 +115,13 @@ function formatSeason (season, key) {
 
 		index = key === 'Ski' && i > 9 ? i - 13 : i;
 
-		season.distanceByMonths.push({
-			index: index,
-			name: moment(i, 'M').format('MMMM'),
-			value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
-		});
+		if ((key === 'Ride' && i >= 4 && i <= 10) || key === 'Ski' || (key === 'Run' && i >= 4 && i <= 11)) {
+			season.distanceByMonths.push({
+				index: index,
+				name: moment(i, 'M').format('MMMM'),
+				value: _.round(_.sum(_.map(monthActivities, 'distance')), 1)
+			});
+		}
 	});
 
 	if (key === 'Ski') {
@@ -271,7 +274,7 @@ function getActivities (params) {
 
 					getActivities({
 						res,
-						page
+						page,
 					});
 				});
 

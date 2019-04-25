@@ -9,13 +9,21 @@ import { SplitsComponent } from '../splits/splits.component';
 import { ActivitiesSplitsResolveService } from './../activities/activities.splits.resolve.service';
 import { ChartGuard } from './app.chart.guard';
 import { SkiChartComponent } from './../ski/chart/ski.chart.component';
+import { BikeChartComponent } from 'src/bike/chart/bike.chart.component';
+import { BikeDetailComponent } from 'src/bike/detail/bike.detail.component';
+import { BikeSummaryComponent } from './../bike/summary/bike.summary.component';
+import { RunSummaryComponent } from 'src/run/summary/run.summary.component';
+import { RunChartComponent } from 'src/run/chart/run.chart.component';
+import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 
 const routes: Routes = [
+	// ski
 	{
 		path: '',
 		pathMatch: 'full',
 		redirectTo: 'ski'
-	}, {
+	},
+	{
 		path: 'ski',
 		data: {
 			stateName: 'ski'
@@ -24,26 +32,30 @@ const routes: Routes = [
 			path: '',
 			redirectTo: 'summaryChart',
 			pathMatch: 'full'
-		}, {
+		},
+		{
 			path: 'summaryChart',
 			component: SkiChartComponent,
 			resolve: {
 				data: ActivitiesResolveService
 			},
 			canActivate: [ChartGuard]
-		}, {
+		},
+		{
 			path: 'summary',
 			component: SkiSummaryComponent,
 			resolve: {
 				data: ActivitiesResolveService
 			}
-		}, {
+		},
+		{
 			path: 'detail',
 			component: SkiDetailComponent,
 			resolve: {
 				data: ActivitiesResolveService
 			},
-		}]
+		}
+	]
 	}, {
 		path: 'splits/:id',
 		pathMatch: 'full',
@@ -54,6 +66,88 @@ const routes: Routes = [
 		resolve: {
 			data: ActivitiesSplitsResolveService
 		}
+	},
+
+	// bike
+	{
+		path: '',
+		pathMatch: 'full',
+		redirectTo: 'bike'
+	},
+	{
+		path: 'bike',
+		data: {
+			stateName: 'bike'
+		},
+		children: [{
+			path: '',
+			redirectTo: 'summaryChart',
+			pathMatch: 'full'
+		},
+		{
+			path: 'summaryChart',
+			component: BikeChartComponent,
+			resolve: {
+				data: ActivitiesResolveService
+			},
+			canActivate: [ChartGuard]
+		},
+		{
+			path: 'detail',
+			component: BikeDetailComponent,
+			resolve: {
+				data: ActivitiesResolveService
+			}
+		},
+		{
+			path: 'summary',
+			component: BikeSummaryComponent,
+			resolve: {
+				data: ActivitiesResolveService
+			},
+		}
+	]},
+
+	// run
+	{
+		path: '',
+		pathMatch: 'full',
+		redirectTo: 'run'
+	},
+	{
+		path: 'run',
+		data: {
+			stateName: 'run'
+		},
+		children: [
+			{
+				path: '',
+				redirectTo: 'summaryChart',
+				pathMatch: 'full'
+			},
+			{
+				path: 'summaryChart',
+				component: RunChartComponent,
+				resolve: {
+					data: ActivitiesResolveService
+				},
+				canActivate: [ChartGuard]
+			},
+			{
+				path: 'summary',
+				component: RunSummaryComponent,
+				resolve: {
+					data: ActivitiesResolveService
+				},
+			},
+			{
+				path: 'detail',
+				component: RunDetailComponent,
+				resolve: {
+					data: ActivitiesResolveService
+				},
+			},
+		]
 	}
 ];
 
