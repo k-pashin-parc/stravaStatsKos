@@ -52,7 +52,6 @@ export class SegmentsComponent {
 	}, {
 		title: 'Общая скорость (км/ч)',
 		fieldName: 'total_speed',
-		type: 'time'
 	}, {
 		title: 'Время',
 		fieldName: 'elapsed_time',
