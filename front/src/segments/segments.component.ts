@@ -99,7 +99,7 @@ export class SegmentsComponent {
 			this.activitiesDataService.getSegments(params.id)
 				.subscribe((res: ISegmensListData) => {
 					this.data = res;
-					this.tableTitle = `${this.data.name} ${this.data.date}`;
+					this.tableTitle = `${this.data.name}, ${this.data.date}`;
 					this.setTitle(`${this.sectionName} – ${this.data.name}`);
 
 					this.data.segments.forEach((el: any) => {
