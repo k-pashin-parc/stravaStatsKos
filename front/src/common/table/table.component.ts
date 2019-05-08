@@ -9,6 +9,7 @@ import {
 	ComponentFactoryResolver,
 	ViewChildren,
 	QueryList,
+	OnChanges,
 } from '@angular/core';
 
 import { AddContentDirective } from './../../add_content/add_content.directive';
@@ -19,7 +20,7 @@ import { FieldConfig } from './../../config/table.config';
 	templateUrl: 'table.component.pug',
 	styleUrls: ['./table.component.sass'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 	@Input() private data: {}[];
 	@Input() private fields: FieldConfig[];
 	@Input() private title: string;
@@ -40,8 +41,7 @@ export class TableComponent implements OnInit {
 	private dataSource: MatTableDataSource<{}>;
 
 	ngOnInit () {
-		this.dataSource = new MatTableDataSource(this.data);
-		this.dataSource.sort = this.sort;
+		this.setDatasource();
 
 		this.dataSource.sortingDataAccessor = (item, property) => {
 			const fields = {
@@ -54,6 +54,15 @@ export class TableComponent implements OnInit {
 		this.displayedColumns = this.fields.map(el => {
 			return el.fieldName;
 		});
+	}
+
+	ngOnChanges () {
+		this.setDatasource();
+	}
+
+	private setDatasource () {
+		this.dataSource = new MatTableDataSource(this.data);
+		this.dataSource.sort = this.sort;
 	}
 
 	private showData (item) {
