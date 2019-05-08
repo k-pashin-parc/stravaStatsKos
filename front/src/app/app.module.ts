@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgmCoreModule } from '@agm/core';
 
 import { CommonModule } from './../common/common.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +19,8 @@ import { BikeSummaryComponent } from './../bike/summary/bike.summary.component';
 import { RunSummaryComponent } from 'src/run/summary/run.summary.component';
 import { RunChartComponent } from 'src/run/chart/run.chart.component';
 import { RunDetailComponent } from 'src/run/detail/run.detail.component';
+import { SegmentsComponent } from 'src/segments/segments.component';
+import { mapsApiKey } from 'src/config/maps';
 
 @NgModule({
 	declarations: [
@@ -33,6 +36,7 @@ import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 		RunSummaryComponent,
 		RunChartComponent,
 		RunDetailComponent,
+		SegmentsComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -40,6 +44,9 @@ import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 		CommonModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
+		AgmCoreModule.forRoot({
+			apiKey: mapsApiKey,
+		}),
 	],
 	exports: [],
 	providers: [
@@ -47,6 +54,9 @@ import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 	],
 	bootstrap: [
 		AppComponent,
+	],
+	entryComponents: [
+
 	]
 })
 

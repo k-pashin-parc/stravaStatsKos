@@ -10,7 +10,8 @@ import { ActivitiesService } from './activities.service';
 export class ActivitiesDataService {
 	private data = {
 		general: [],
-		splits: {}
+		splits: {},
+		segments: [],
 	};
 
 	private state = {
@@ -61,7 +62,7 @@ export class ActivitiesDataService {
 		return key ? this.state[key] : this.state;
 	}
 
-	getSplits (id): Observable<object> {
+	getSplits (id: string): Observable<object> {
 		this.state.isLoading = true;
 
 		return this.activitiesService
@@ -70,6 +71,27 @@ export class ActivitiesDataService {
 				map((response: object) => {
 					this.state.isLoading = false;
 					this.data.splits = response;
+
+					return response;
+				}),
+				catchError((error) => {
+					alert(error.error);
+					this.state.isLoading = false;
+
+					return throwError('Something gone wrong again.');
+				})
+			);
+	}
+
+	getSegments (id: string): Observable<object> {
+		this.state.isLoading = true;
+
+		return this.activitiesService
+			.getSegments(id)
+			.pipe(
+				map((response: object) => {
+					this.state.isLoading = false;
+					this.data.segments = response as [];
 
 					return response;
 				}),

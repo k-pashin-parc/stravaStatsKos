@@ -16,6 +16,7 @@ import { RunSummaryComponent } from 'src/run/summary/run.summary.component';
 import { RunChartComponent } from 'src/run/chart/run.chart.component';
 import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 import { DefaultRouteCongif } from 'src/config/default_route.config';
+import { SegmentsComponent } from './../segments/segments.component';
 
 const routes: Routes = [
 	{
@@ -150,14 +151,27 @@ const routes: Routes = [
 				},
 			},
 		]
+	},
+
+	// segments
+	{
+		path: 'segments/:id',
+		data: {
+			stateName: 'segments',
+			isHideMenu: true
+		},
+		component: SegmentsComponent,
+		pathMatch: 'full'
 	}
 ];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes, {
-		useHash: true
+		useHash: true,
 	})],
-	exports: [RouterModule],
+	exports: [
+		RouterModule,
+	],
 	providers: [
 		ActivitiesResolveService,
 		ActivitiesDataService,

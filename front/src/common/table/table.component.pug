@@ -4,7 +4,25 @@
 	mat-table.mat-elevation-z8(
 		[dataSource]='dataSource'
 		matSort
+		multiTemplateDataRows
 	)
+
+		ng-container(
+			*ngIf='expandableParams'
+			matColumnDef='expandedDetail'
+		)
+			mat-cell(
+				*matCellDef='let element'
+			)
+				.detail_spinner-wrapper
+					mat-progress-spinner(
+						*ngIf='element.isLoading'
+						mode='indeterminate'
+						diameter='20'
+					)
+				ng-template(
+					add-content
+				)
 
 		ng-container(
 			*ngFor='let field of fields; let i = index;'
@@ -50,5 +68,15 @@
 		)
 
 		mat-row(
-			*matRowDef='let row; columns: displayedColumns;'
+			*matRowDef='let element; columns: displayedColumns;'
+			'(click)'='toggleRow(element)'
+			'[class.mat-expanded-row]'='expandedItem === element'
 		)
+
+		ng-container(
+			*ngIf='expandableParams'
+		)
+			mat-row(
+				*matRowDef="let row; columns: ['expandedDetail']"
+				class='mat-detail-row'
+			)

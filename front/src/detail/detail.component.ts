@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { ActivitiesDataService } from '../activities/activities.data.service';
 import { FieldConfig } from '../config/table.config';
 import { DeviceService, ScreeState } from '../common/device/device.service';
@@ -17,6 +17,9 @@ export class DetailComponent implements OnInit {
 		additionalLinks: [{
 			name: 'скорости',
 			url: '/splits'
+		}, {
+			name: 'сегменты',
+			url: '/segments',
 		}],
 	}, {
 		title: 'S, км',
@@ -41,6 +44,9 @@ export class DetailComponent implements OnInit {
 		additionalLinks: [{
 			name: 'скорости',
 			url: '/splits'
+		}, {
+			name: 'сегменты',
+			url: '/segments',
 		}],
 	}, {
 		title: 'Расстояние, км',

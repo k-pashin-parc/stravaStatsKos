@@ -1,29 +1,92 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { get } from 'lodash';
 
 import { ExamplatData } from '../config/data.config';
 
-@Injectable()
+declare interface IActivityItem {
+	id: string;
+	distance: number;
+}
+
+@Injectable({
+	providedIn: 'root'
+})
 export class ActivitiesService {
 	private url = {
 		all: '/api/summary',
 		splits: '/api/splits',
+		segments: '/api/segments',
+		segmentLeaderboard: '/api/segmentLeaderboard',
+		myEfforts: '/api/segmentMyEfforts',
+		map: '/api/segmentMap',
 	};
 
 	constructor (private http: HttpClient) { }
 
-	getAllData(): Observable<object> {
-		return this.http
-			.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}`);
+	getAllData(): Observable<{}> {
+		return this.http.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}`);
 	}
 
-	getSplits(id): Observable<object> {
-		return this.http
-			.get(this.url.splits, {
+	getSplits(id: string): Observable<{}> {
+		return this.http.get(this.url.splits, {
 				params: {
 					id: id
 				}
 			});
+	}
+
+	getSegments (id: string): Observable<{}> {
+		const params = {
+			id: id
+		};
+
+		return this.http.get(this.url.segments, {params: params});
+	}
+
+	getSegmentLeaderboard (item: IActivityItem): Observable<{}> {
+		const params = {
+			id: item.id,
+			distance: item.distance
+		};
+
+		return this.http.get(this.url.segmentLeaderboard, {params: params as any});
+	}
+
+	getSegmentMyEfforts (item: IActivityItem): Observable<{}> {
+		const params = {
+			id: item.id,
+			distance: item.distance
+		};
+
+		return this.http.get(this.url.myEfforts, {params: params as any});
+	}
+
+	getSegmentMap (id: string): Observable<{}> {
+		const params = {
+			id: id
+		};
+
+		return this.http.get(this.url.map, {
+			params: params
+		});
+	}
+
+	getAllSegmentData (item: IActivityItem): Observable<{}> {
+		return forkJoin(
+			this.getSegmentLeaderboard(item),
+			this.getSegmentMyEfforts(item),
+			this.getSegmentMap(item.id),
+		).pipe(
+			map((response) => {
+				return {
+					leaderboard: get(response, '[0].entries'),
+					myEfforts: response[1],
+					map: response[2],
+				};
+			})
+		);
 	}
 }

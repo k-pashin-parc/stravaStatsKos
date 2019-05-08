@@ -1,0 +1,8 @@
+common-table(
+	*ngIf='data?.segments'
+	'[data]'='data.segments'
+	'[fields]'='segmentsFields'
+	'[expandableParams]'='expandableParams'
+	classes='expandable'
+	'[title]'='tableTitle'
+)

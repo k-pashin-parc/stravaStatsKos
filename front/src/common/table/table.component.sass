@@ -36,3 +36,20 @@
 	margin-right: 8px
 	margin-top: 6px
 	font-size: 11px
+
+.mat-detail-row
+	display: none
+	position: relative
+
+.mat-expanded-row
+	+ .mat-detail-row
+		display: flex
+
+.detail_spinner-wrapper
+	position: absolute
+	left: 50%
+	transform: translateX(-50%)
+
+.expandable
+	.mat-row
+		cursor: pointer
