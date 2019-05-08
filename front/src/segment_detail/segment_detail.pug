@@ -8,18 +8,39 @@ mat-form-field
 			'[value]'='mode'
 		) {{mode.title}}
 
-.segment_details-wrapper
+div(
+	*ngIf='screenState.isMobile'
+)
 	common-table(
 		*ngIf='leaderboardSelectedMode.id === "all"'
 		'[data]'='data.leaderboard'
-		'[fields]'='allFields'
+		'[fields]'='mobileAllFields'
+		classes='leaderboard small_table'
+		isWithoutSeconds='true'
+	)
+
+	common-table(
+		*ngIf='leaderboardSelectedMode.id === "my"'
+		'[data]'='data.myEfforts'
+		'[fields]'='mobileMyFields'
+		classes='leaderboard small_table'
+		isWithoutSeconds='true'
+	)
+
+.segment_details-wrapper(
+	*ngIf='!screenState.isMobile'
+)
+	common-table(
+		*ngIf='leaderboardSelectedMode.id === "all"'
+		'[data]'='data.leaderboard'
+		'[fields]'='generalAllFields'
 		classes='leaderboard'
 	)
 
 	common-table(
 		*ngIf='leaderboardSelectedMode.id === "my"'
 		'[data]'='data.myEfforts'
-		'[fields]'='myFields'
+		'[fields]'='generalMyFields'
 		classes='leaderboard'
 	)
 
