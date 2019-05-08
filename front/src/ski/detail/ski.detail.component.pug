@@ -7,16 +7,20 @@
 			[(ngModel)]='item.isSelected'
 		) {{item.name}}
 
-ng-container(*ngIf='screenState.isMobile')
-	common-table(
-		[data]='data',
-		[fields]='mobileFields'
-		classes='small_table'
-		isWithoutSeconds='true'
-	)
+ng-container(*ngIf='data?.length')
+	ng-container(*ngIf='screenState.isMobile')
+		common-table(
+			[data]='data',
+			[fields]='mobileFields'
+			classes='small_table'
+			isWithoutSeconds='true'
+		)
 
-ng-container(*ngIf='!screenState.isMobile')
-	common-table(
-		[data]='data',
-		[fields]='generalFields'
-	)
+	ng-container(*ngIf='!screenState.isMobile')
+		common-table(
+			[data]='data',
+			[fields]='generalFields'
+		)
+
+ng-container(*ngIf='data && !data.length')
+	no-data

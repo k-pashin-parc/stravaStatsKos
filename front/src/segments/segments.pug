@@ -1,20 +1,22 @@
-ng-container(*ngIf='!screenState.isMobile')
-	common-table(
-		*ngIf='data?.segments'
-		'[data]'='data.segments'
-		'[fields]'='generalSegmentsFields'
-		'[expandableParams]'='expandableParams'
-		classes='expandable'
-		'[title]'='tableTitle'
-	)
+ng-container(*ngIf='data?.segments.length')
+	ng-container(*ngIf='!screenState.isMobile')
+		common-table(
+			'[data]'='data.segments'
+			'[fields]'='generalSegmentsFields'
+			'[expandableParams]'='expandableParams'
+			classes='expandable'
+			'[title]'='tableTitle'
+		)
 
-ng-container(*ngIf='screenState.isMobile')
-	common-table(
-		*ngIf='data?.segments'
-		'[data]'='data.segments'
-		'[fields]'='mobileSegmentsFields'
-		'[expandableParams]'='expandableParams'
-		classes='expandable small_table'
-		'[title]'='tableTitle'
-		isWithoutSeconds='true'
-	)
+	ng-container(*ngIf='screenState.isMobile')
+		common-table(
+			'[data]'='data.segments'
+			'[fields]'='mobileSegmentsFields'
+			'[expandableParams]'='expandableParams'
+			classes='expandable small_table'
+			'[title]'='tableTitle'
+			isWithoutSeconds='true'
+		)
+
+ng-container(*ngIf='data && !data.segments.length')
+	no-data

@@ -18,6 +18,7 @@ import { ChartComponent } from './chart/chart.component';
 import { MatSortModule } from '@angular/material';
 import { AddContentDirective } from './../add_content/add_content.directive';
 import { SegmentDetailComponent } from './../segment_detail/segment_detail.component';
+import { NoDataComponent } from './no_data/no_data.component';
 
 @NgModule({
 	declarations: [
@@ -26,6 +27,7 @@ import { SegmentDetailComponent } from './../segment_detail/segment_detail.compo
 		ChartComponent,
 		AddContentDirective,
 		SegmentDetailComponent,
+		NoDataComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -56,6 +58,7 @@ import { SegmentDetailComponent } from './../segment_detail/segment_detail.compo
 		BrowserAnimationsModule,
 		AddContentDirective,
 		MatSelectModule,
+		NoDataComponent,
 	],
 	providers: [],
 	entryComponents: [
