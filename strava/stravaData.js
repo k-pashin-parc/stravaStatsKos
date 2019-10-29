@@ -5,6 +5,7 @@ const _ = require('lodash');
 const moment = require('moment');
 const strava = require('strava-v3');
 const decodePolyline = require('decode-google-map-polyline');
+const axios = require('axios');
 
 const config = require('../config');
 const exampleData = require('../strava/exampleData');
@@ -245,7 +246,7 @@ function getActivities (params) {
 
 	realData$.subscribe(() => {
 		strava.athlete.listActivities({
-			access_token: accessToken,
+			access_token: params.token,
 			per_page: 200,
 			page: page
 		}, function (err, payload) {
@@ -275,6 +276,7 @@ function getActivities (params) {
 					getActivities({
 						res,
 						page,
+						token: params.token
 					});
 				});
 
@@ -287,52 +289,54 @@ function getActivities (params) {
 }
 
 function getSplits (res, id) {
-	strava.activities.get({
-		access_token: accessToken,
-		id: id
-	}, function (err, payload) {
-		const detail = {
-			splits: []
-		};
+	getTokenPromise().then(function (response) {
+		strava.activities.get({
+			access_token: response.data.access_token,
+			id: id
+		}, function (err, payload) {
+			const detail = {
+				splits: []
+			};
 
-		const isError$ = rx.Observable.of(err).partition(el => {
-			return !!el;
+			const isError$ = rx.Observable.of(err).partition(el => {
+				return !!el;
+			});
+
+			const onError$ = isError$[0];
+			const onDone$ = isError$[1];
+
+			onError$.subscribe(() => {
+				res.json(err);
+			});
+
+			onDone$.subscribe(() => {
+				detail.name = payload.name;
+
+				rx.Observable
+					.from(payload.splits_metric)
+					.map((split, index) => {
+						var distance = split.distance / 1000,
+							displayDistance = _.round(distance, 1),
+							movingTime = split.moving_time / 60 / 60,
+							movingSpeed = _.round(distance / movingTime, 1),
+							totalTime = split.elapsed_time / 60 / 60,
+							totalSpeed = _.round(distance / totalTime, 1);
+
+						if (displayDistance) {
+							detail.splits.push({
+								index: index + 1,
+								distance: _.round(distance, 2),
+								moving_speed: movingSpeed,
+								total_speed: totalSpeed,
+								rest_time: getRestTime(split)
+							});
+						}
+					})
+					.subscribe();
+
+				res.json(detail);
+			})
 		});
-
-		const onError$ = isError$[0];
-		const onDone$ = isError$[1];
-
-		onError$.subscribe(() => {
-			res.json(err);
-		});
-
-		onDone$.subscribe(() => {
-			detail.name = payload.name;
-
-			rx.Observable
-				.from(payload.splits_metric)
-				.map((split, index) => {
-					var distance = split.distance / 1000,
-						displayDistance = _.round(distance, 1),
-						movingTime = split.moving_time / 60 / 60,
-						movingSpeed = _.round(distance / movingTime, 1),
-						totalTime = split.elapsed_time / 60 / 60,
-						totalSpeed = _.round(distance / totalTime, 1);
-
-					if (displayDistance) {
-						detail.splits.push({
-							index: index + 1,
-							distance: _.round(distance, 2),
-							moving_speed: movingSpeed,
-							total_speed: totalSpeed,
-							rest_time: getRestTime(split)
-						});
-					}
-				})
-				.subscribe();
-
-			res.json(detail);
-		})
 	});
 }
 
@@ -506,6 +510,32 @@ function getSegmentMap (res, id) {
 	});
 }
 
+function getTokenPromise () {
+	return axios({
+		method: 'POST',
+		url: 'https://www.strava.com/oauth/token',
+		data: {
+			client_id: config.client_id,
+			client_secret: config.client_secret,
+			code: config.code,
+			grant_type: 'authorization_code'
+		}
+	});
+}
+
+function getTokenPromise () {
+	return axios({
+		method: 'POST',
+		url: 'https://www.strava.com/oauth/token',
+		data: {
+			client_id: config.client_id,
+			client_secret: config.client_secret,
+			code: config.code,
+			grant_type: 'authorization_code'
+		}
+	});
+}
+
 module.exports = {
 	getActivities,
 	init,
@@ -514,4 +544,5 @@ module.exports = {
 	getSegmentLeaderboard,
 	getSegmentMyEfforts,
 	getSegmentMap,
+	getTokenPromise,
 };
