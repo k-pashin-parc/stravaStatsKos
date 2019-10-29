@@ -1,7 +1,7 @@
 module.exports = {
-	id: 7453348,
-	accessToken: '09209c986e27d20cb0a42febbe3503809257a173',
-	client_id: 32856,
-	client_secret: '584589b7845863cd54c2cc8a1b8ed9f17d91fac4',
-	code: '9e8064aa0a459adff96a4e2ac02c56549760f71b'
+	id: 7453347,
+	accessToken: '542f0353bc1590bc651e729ed8358de79fd0f2bd',
+	client_id: 15224,
+	client_secret: 'cf321bb705555814232e7b5b238ec68f7a57a25e',
+	code: 'e4368e9522e66429549ef5ff301eaecc33af3b1e'
 };
