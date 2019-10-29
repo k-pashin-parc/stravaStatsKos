@@ -8,11 +8,22 @@ function mainStatsRoute (app) {
 		})
 		.get('/api/summary', function (req, res) {
 			stravaData.init();
-			stravaData.getActivities({
-				res: res,
-				page: 1,
-				isExampleData: req.query.isExampleData
-			});
+
+			if (req.query.isExampleData === true) {
+				stravaData.getActivities({
+					res: res,
+					page: 1,
+					isExampleData: true
+				});
+			} else {
+				stravaData.getTokenPromise().then(function (response) {
+					stravaData.getActivities({
+						res: res,
+						page: 1,
+						token: response.data.access_token
+					});
+				});
+			}
 		})
 		.get('/api/exampleJson', function (req, res) {
 			res.json(exampleData.getData());
