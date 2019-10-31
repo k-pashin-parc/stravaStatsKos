@@ -4,7 +4,6 @@
 	"description": "",
 	"main": "app.js",
 	"scripts": {
-		"build": "ng build",
 		"preinstall": "cd front && npm i",
 		"postinstall": "cd front && ng build",
 		"start": "node app.js",

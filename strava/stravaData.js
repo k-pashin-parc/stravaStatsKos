@@ -341,46 +341,48 @@ function getSplits (res, id) {
 }
 
 function getSegments (res, id) {
-	strava.activities.get({
-		access_token: accessToken,
-		id: id
-	}, function (err, payload) {
-		const detail = {
-			segments: []
-		};
+	getTokenPromise().then(function (response) {
+		strava.activities.get({
+			access_token: response.data.access_token,
+			id: id
+		}, function (err, payload) {
+			const detail = {
+				segments: []
+			};
 
-		const isError$ = rx.Observable.of(err).partition(el => {
-			return !!el;
-		});
+			const isError$ = rx.Observable.of(err).partition(el => {
+				return !!el;
+			});
 
-		const onError$ = isError$[0];
-		const onDone$ = isError$[1];
+			const onError$ = isError$[0];
+			const onDone$ = isError$[1];
 
-		onError$.subscribe(() => {
-			res.json(err);
-		});
+			onError$.subscribe(() => {
+				res.json(err);
+			});
 
-		onDone$.subscribe(() => {
-			detail.name = payload.name;
-			detail.date = moment(payload.start_date).format('DD MMM YYYY');
+			onDone$.subscribe(() => {
+				detail.name = payload.name;
+				detail.date = moment(payload.start_date).format('DD MMM YYYY');
 
-			rx.Observable
-				.from(payload.segment_efforts)
-				.map((segment) => {
-					detail.segments.push({
-						id: segment.segment.id,
-						name: segment.name,
-						distance: formatDistance(segment.distance),
-						achievements: _.pick(segment.achievements, 'type', 'rank'),
-						moving_speed: getSpeed(segment.distance, segment.moving_time),
-						total_speed: getSpeed(segment.distance, segment.elapsed_time),
-						elapsed_time: segment.elapsed_time,
-						rest_time: getRestTime(segment)
-					});
-				})
-				.subscribe();
+				rx.Observable
+					.from(payload.segment_efforts)
+					.map((segment) => {
+						detail.segments.push({
+							id: segment.segment.id,
+							name: segment.name,
+							distance: formatDistance(segment.distance),
+							achievements: _.pick(segment.achievements, 'type', 'rank'),
+							moving_speed: getSpeed(segment.distance, segment.moving_time),
+							total_speed: getSpeed(segment.distance, segment.elapsed_time),
+							elapsed_time: segment.elapsed_time,
+							rest_time: getRestTime(segment)
+						});
+					})
+					.subscribe();
 
-			res.json(detail);
+				res.json(detail);
+			});
 		});
 	});
 }
