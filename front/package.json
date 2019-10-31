@@ -1,5 +1,8 @@
 {
-  "name": "front",
+	"name": "front",
+	"engines": {
+    "node": "9.0.0"
+  },
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
