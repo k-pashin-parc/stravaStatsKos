@@ -7,6 +7,8 @@
 	"description": "",
 	"main": "app.js",
 	"scripts": {
+		"preinstall": "cd front && npm i",
+		"postinstall": "cd front && ng build",
 		"start": "node app.js",
 		"start_dev": "concurrently \"npm start\" \"cd front && ng serve --proxy-config proxy.conf.json\""
 	},
