@@ -7,7 +7,7 @@
 	"description": "",
 	"main": "app.js",
 	"scripts": {
-		"build": "npm i && cd front && npm i ng build",
+		"build": "cd front && npm i ng build",
 		"start": "node app.js",
 		"start_dev": "concurrently \"npm start\" \"cd front && ng serve --proxy-config proxy.conf.json\""
 	},
