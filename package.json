@@ -7,7 +7,7 @@
 	"description": "",
 	"main": "app.js",
 	"scripts": {
-		"build": "npm i && cd front && npm i && node ./ng-add-pug-loader.js && ng build",
+		"build": "npm i && cd front && npm i ng build",
 		"start": "node app.js",
 		"start_dev": "concurrently \"npm start\" \"cd front && ng serve --proxy-config proxy.conf.json\""
 	},
