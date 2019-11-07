@@ -388,35 +388,27 @@ function getSegments (res, id) {
 }
 
 function getSegmentLeaderboard (res, id, distance) {
-	strava.segments.listLeaderboard({
-		access_token: accessToken,
-		id: id,
-		per_page: 200
-	}, function (err, payload) {
-		const detail = {
-			entries: []
-		};
+	getTokenPromise().then((response) => {
+		strava.segments.listLeaderboard({
+			access_token: response.data.access_token,
+			id: id,
+			per_page: 200
+		}, (err, payload) => {
+			const detail = {
+				entries: []
+			};
 
-		const distanceM = distance * 1000;
+			const distanceM = distance * 1000;
 
-		const isError$ = rx.Observable.of(err).partition(el => {
-			return !!el;
-		});
+			if (err) {
+				res
+					.status(500)
+					.send(err);
+			} else {
+				detail.effort_count = payload.effort_count;
+				detail.entry_count = payload.entry_count;
 
-		const onError$ = isError$[0];
-		const onDone$ = isError$[1];
-
-		onError$.subscribe(() => {
-			res.json(err);
-		});
-
-		onDone$.subscribe(() => {
-			detail.effort_count = payload.effort_count;
-			detail.entry_count = payload.entry_count;
-
-			rx.Observable
-				.from(payload.entries)
-				.map((el) => {
+				payload.entries.forEach((el) => {
 					const data = {};
 
 					if (distance) {
@@ -430,36 +422,28 @@ function getSegmentLeaderboard (res, id, distance) {
 					data.elapsed_time = el.elapsed_time;
 
 					detail.entries.push(data);
-				})
-				.subscribe();
+				});
 
 				res.json(detail);
-			});
+			}
+		});
 	});
 }
 
 function getSegmentMyEfforts (res, id) {
-	strava.segments.listEfforts({
-		access_token: accessToken,
-		id: id,
-	}, function (err, payload) {
-		const detail = [];
+	getTokenPromise().then((response) => {
+		strava.segments.listEfforts({
+			access_token: response.data.access_token,
+			id: id,
+		}, (err, payload) => {
+			const detail = [];
 
-		const isError$ = rx.Observable.of(err).partition(el => {
-			return !!el;
-		});
-
-		const onError$ = isError$[0];
-		const onDone$ = isError$[1];
-
-		onError$.subscribe(() => {
-			res.json(err);
-		});
-
-		onDone$.subscribe(() => {
-			rx.Observable
-				.from(payload)
-				.map((el) => {
+			if (err) {
+				res
+					.status(500)
+					.send(err);
+			} else {
+				payload.forEach((el) => {
 					detail.push({
 						id: el.activity.id,
 						date: formatDateMs(el.start_date),
@@ -474,44 +458,38 @@ function getSegmentMyEfforts (res, id) {
 						pr_rank: el.pr_rank,
 						achievements: el.achievements
 					});
-				})
-				.subscribe();
+				});
 
-			res.json(_.orderBy(detail, 'date', 'desc'));
+				res.json(_.orderBy(detail, 'date', 'desc'));
+			}
 		});
 	});
 }
 
 function getSegmentMap (res, id) {
-	strava.segments.get({
-		access_token: accessToken,
-		id: id
-	}, function (err, payload) {
-		const isError$ = rx.Observable.of(err).partition(el => {
-			return !!el;
-		});
+	getTokenPromise().then((response) => {
+		strava.segments.get({
+			access_token: response.data.access_token,
+			id: id
+		}, (err, payload) => {
+			if (err) {
+				res
+					.status(500)
+					.send(err);
+			} else {
+				payload.route = decodePolyline(payload.map.polyline);
 
-		const onError$ = isError$[0];
-		const onDone$ = isError$[1];
-
-		onError$.subscribe(() => {
-			res.json(err);
-		});
-
-		onDone$.subscribe(() => {
-			payload.route = decodePolyline(payload.map.polyline);
-
-			res.json(_.pick(payload, [
-				'start_latitude',
-				'start_longitude',
-				'end_latitude',
-				'end_longitude',
-				'route',
-			]));
+				res.json(_.pick(payload, [
+					'start_latitude',
+					'start_longitude',
+					'end_latitude',
+					'end_longitude',
+					'route',
+				]));
+			}
 		});
 	});
 }
-
 
 function getTokenPromise () {
 	return axios({
