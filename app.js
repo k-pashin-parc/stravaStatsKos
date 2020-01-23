@@ -1,8 +1,7 @@
 var express = require('express'),
 	bodyParser = require( 'body-parser' ),
 	app = express(),
-	mainStatsRoute = require('./routes/mainStatsRoute'),
-	sslRedirect = require('heroku-ssl-redirect');
+	mainStatsRoute = require('./routes/mainStatsRoute');
 
 app
 	.set('port', (process.env.PORT || 5000))
@@ -10,8 +9,7 @@ app
 	.use(bodyParser.urlencoded({
 		extended: true
 	}))
-	.use(express.static(__dirname + '/dist'))
-	.use(sslRedirect());
+	.use(express.static(__dirname + '/dist'));
 
 mainStatsRoute(app);
 
