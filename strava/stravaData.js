@@ -491,14 +491,14 @@ function getSegmentMap (res, id) {
 	});
 }
 
-function getTokenPromise () {
+function getTokenPromise (code) {
 	return axios({
 		method: 'POST',
 		url: 'https://www.strava.com/oauth/token',
 		data: {
 			client_id: config.client_id,
 			client_secret: config.client_secret,
-			code: config.code,
+			code: code,
 			grant_type: 'authorization_code'
 		}
 	});

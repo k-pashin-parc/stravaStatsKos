@@ -26,8 +26,8 @@ export class ActivitiesService {
 
 	constructor (private http: HttpClient) { }
 
-	getAllData(): Observable<{}> {
-		return this.http.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}`);
+	getAllData(code): Observable<{}> {
+		return this.http.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}&code=${code}`);
 	}
 
 	getSplits(id: string): Observable<{}> {

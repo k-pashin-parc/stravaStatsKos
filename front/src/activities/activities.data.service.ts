@@ -22,7 +22,13 @@ export class ActivitiesDataService {
 	init (): Observable<object> {
 		this.state.isLoading = true;
 
-		return this.activitiesService.getAllData()
+		return this.activitiesService.getAllData(
+			decodeURIComponent(
+				window.location.search.replace(
+					new RegExp('^(?:.*[&\\?]' + encodeURIComponent('code').replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'
+				)
+			)
+		)
 			.pipe(
 				map((response: object) => {
 					this.state.isInited = true;
