@@ -17,6 +17,9 @@ function mainStatsRoute (app) {
 		.get('/summary', function (req, res) {
 			res.sendFile('/index.html');
 		})
+		.get('/test', function (req, res) {
+			res.json({date: 'test'});
+		})
 		.get('/api/summary', function (req, res) {
 			stravaData.init();
 
