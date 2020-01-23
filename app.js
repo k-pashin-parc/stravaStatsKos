@@ -2,7 +2,7 @@ var express = require('express'),
 	bodyParser = require( 'body-parser' ),
 	app = express(),
 	mainStatsRoute = require('./routes/mainStatsRoute'),
-	enforce = require('express-sslify');
+	httpsRedirect = require('express-https-redirect');
 
 app
 	.set('port', (process.env.PORT || 5000))
@@ -11,7 +11,7 @@ app
 		extended: true
 	}))
 	.use(express.static(__dirname + '/dist'))
-	.use(enforce.HTTPS({ trustProtoHeader: true }));
+	.use('/test', httpsRedirect(true));
 
 mainStatsRoute(app);
 
