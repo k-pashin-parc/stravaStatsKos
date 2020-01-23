@@ -2,7 +2,7 @@ var express = require('express'),
 	bodyParser = require( 'body-parser' ),
 	app = express(),
 	mainStatsRoute = require('./routes/mainStatsRoute'),
-	httpsRedirect = require('express-https-redirect');
+	sslRedirect = require('heroku-ssl-redirect');
 
 app
 	.set('port', (process.env.PORT || 5000))
@@ -11,7 +11,7 @@ app
 		extended: true
 	}))
 	.use(express.static(__dirname + '/dist'))
-	.use('/test', httpsRedirect(true));
+	.use(sslRedirect());
 
 mainStatsRoute(app);
 
