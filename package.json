@@ -20,6 +20,7 @@
 		"core-js": "^2.5.3",
 		"decode-google-map-polyline": "^1.0.1",
 		"express": "^4.14.0",
+		"express-sslify": "^1.2.0",
 		"lodash": "^4.17.5",
 		"moment": "^2.20.1",
 		"rxjs": "^6.3.3",
