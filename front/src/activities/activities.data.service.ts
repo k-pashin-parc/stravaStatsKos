@@ -49,7 +49,8 @@ export class ActivitiesDataService {
 					})
 				);
 		} else {
-			const redirect_url = 'http://localhost:4200/';
+			// const redirect_url = 'http://localhost:4200/';
+			const redirect_url = 'https://stravastatskos.herokuapp.com/';
 			const client_id = 15224;
 			const url = `https://www.strava.com/oauth/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_url}&approval_prompt=force&scope=activity:read_all;write`;
 
