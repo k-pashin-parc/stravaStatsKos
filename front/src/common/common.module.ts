@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatButtonModule, MatProgressSpinnerModule, MatProgressBarModule } from '@angular/material';
@@ -40,7 +40,7 @@ import { NoDataComponent } from './no_data/no_data.component';
 		MatProgressSpinnerModule,
 		MatSortModule,
 		BrowserAnimationsModule,
-		AgmCoreModule,
+		// AgmCoreModule,
 		MatSelectModule,
 	],
 	exports: [

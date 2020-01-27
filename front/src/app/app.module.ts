@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
 
 import { CommonModule } from './../common/common.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -44,9 +44,9 @@ import { mapsApiKey } from 'src/config/maps';
 		CommonModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
-		AgmCoreModule.forRoot({
-			apiKey: mapsApiKey,
-		}),
+		// AgmCoreModule.forRoot({
+		// 	apiKey: mapsApiKey,
+		// }),
 	],
 	exports: [],
 	providers: [

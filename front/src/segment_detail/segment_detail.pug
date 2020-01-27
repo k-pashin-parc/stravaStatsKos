@@ -44,20 +44,20 @@ div(
 		classes='leaderboard'
 	)
 
-	agm-map(
-		'[latitude]'='data.map.end_latitude'
-		'[longitude]'='data.map.start_longitude'
-		mapTypeId='terrain'
-		'[zoom]'='12'
-		class='map'
-		'[streetViewControl]'='false'
-	)
-		agm-polyline(
-			strokeColor='red'
-			strokeWeight='4'
-		)
-			agm-polyline-point(
-				*ngFor='let point of data.map.route'
-				'[latitude]'='point.lat'
-				'[longitude]'='point.lng'
-			)
+	//- agm-map(
+	//- 	'[latitude]'='data.map.end_latitude'
+	//- 	'[longitude]'='data.map.start_longitude'
+	//- 	mapTypeId='terrain'
+	//- 	'[zoom]'='12'
+	//- 	class='map'
+	//- 	'[streetViewControl]'='false'
+	//- )
+	//- 	agm-polyline(
+	//- 		strokeColor='red'
+	//- 		strokeWeight='4'
+	//- 	)
+	//- 		agm-polyline-point(
+	//- 			*ngFor='let point of data.map.route'
+	//- 			'[latitude]'='point.lat'
+	//- 			'[longitude]'='point.lng'
+	//- 		)

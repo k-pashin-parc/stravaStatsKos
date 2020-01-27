@@ -4,17 +4,7 @@ const config = require('./../config');
 
 function mainStatsRoute (app) {
 	app
-		.get('/exchange_token', function (req, res) {
-			const code = req.query.code;
-
-			res.redirect(`/summary?code=${code}`);
-		})
 		.get('/', function (req, res) {
-			const url = `https://www.strava.com/oauth/authorize?client_id=${config.client_id}&response_type=code&redirect_uri=${config.redirect_url}&approval_prompt=force&scope=activity:read_all;write`;
-
-			res.redirect(url);
-		})
-		.get('/summary', function (req, res) {
 			res.sendFile('/index.html');
 		})
 		.get('/api/summary', function (req, res) {

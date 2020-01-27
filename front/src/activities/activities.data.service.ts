@@ -18,11 +18,10 @@ export class ActivitiesDataService {
 		isInited: false,
 		isLoading: false,
 	};
-	private code;
+
+	private code: string;
 
 	init () {
-		this.state.isLoading = true;
-
 		this.code = decodeURIComponent(
 			window.location.search.replace(
 				new RegExp('^(?:.*[&\\?]' + encodeURIComponent('code').replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'
@@ -30,6 +29,8 @@ export class ActivitiesDataService {
 		);
 
 		if (this.code) {
+			this.state.isLoading = true;
+
 			return this.activitiesService.getAllData(this.code)
 				.pipe(
 					map((response: object) => {
