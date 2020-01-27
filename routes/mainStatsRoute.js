@@ -15,7 +15,7 @@ function mainStatsRoute (app) {
 			res.redirect(url);
 		})
 		.get('/summary', function (req, res) {
-			res.sendFile('/index_page.html');
+			res.sendFile('/index.html');
 		})
 		.get('/api/summary', function (req, res) {
 			stravaData.init();

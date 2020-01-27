@@ -18,32 +18,42 @@ export class ActivitiesDataService {
 		isInited: false,
 		isLoading: false,
 	};
+	private code;
 
-	init (): Observable<object> {
+	init () {
 		this.state.isLoading = true;
 
-		return this.activitiesService.getAllData(
-			decodeURIComponent(
-				window.location.search.replace(
-					new RegExp('^(?:.*[&\\?]' + encodeURIComponent('code').replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'
-				)
+		this.code = decodeURIComponent(
+			window.location.search.replace(
+				new RegExp('^(?:.*[&\\?]' + encodeURIComponent('code').replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'
 			)
-		)
-			.pipe(
-				map((response: object) => {
-					this.state.isInited = true;
-					this.state.isLoading = false;
-					this.data.general = response['data'];
+		);
 
-					return response;
-				}),
-				catchError((error) => {
-					alert(error.error);
-					this.state.isLoading = false;
+		if (this.code) {
+			return this.activitiesService.getAllData(this.code)
+				.pipe(
+					map((response: object) => {
+						this.state.isInited = true;
+						this.state.isLoading = false;
+						this.data.general = response['data'];
+						this.code = null;
 
-					return throwError('Something gone wrong again.');
-				})
-			);
+						return response;
+					}),
+					catchError((error) => {
+						alert(error.error);
+						this.state.isLoading = false;
+
+						return throwError('Something gone wrong again.');
+					})
+				);
+		} else {
+			const redirect_url = 'http://localhost:4200/';
+			const client_id = 15224;
+			const url = `https://www.strava.com/oauth/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_url}&approval_prompt=force&scope=activity:read_all;write`;
+
+			window.location.assign(url);
+		}
 	}
 
 	getData (path: string): any {
