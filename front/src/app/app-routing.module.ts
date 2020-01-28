@@ -17,13 +17,11 @@ import { RunChartComponent } from 'src/run/chart/run.chart.component';
 import { RunDetailComponent } from 'src/run/detail/run.detail.component';
 import { SegmentsComponent } from './../segments/segments.component';
 
-export const month = (new Date).getMonth() + 1;
-
 const routes: Routes = [
 	{
 		path: '',
 		pathMatch: 'full',
-		redirectTo: month >= 4 && month < 12 ? 'run' : 'ski',
+		redirectTo: ((new Date).getMonth() + 1) >= 4 && ((new Date).getMonth() + 1) < 12 ? 'run' : 'ski',
 	},
 
 	// ski
