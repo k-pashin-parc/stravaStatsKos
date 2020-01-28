@@ -26,24 +26,24 @@ export class ActivitiesService {
 
 	constructor (private http: HttpClient) { }
 
-	getAllData(code): Observable<{}> {
+	getAllData(code: string): Observable<{}> {
 		return this.http.get(`${this.url.all}?isExampleData=${ExamplatData.isExampleData}&code=${code}`);
 	}
 
-	getSplits(id: string): Observable<{}> {
-		return this.http.get(this.url.splits, {
+	getSplits(id: string, code: string): Observable<{}> {
+		return this.http.get(`${this.url.splits}?code=${code}`, {
 				params: {
 					id: id
 				}
 			});
 	}
 
-	getSegments (id: string): Observable<{}> {
+	getSegments (id: string, code: string): Observable<{}> {
 		const params = {
 			id: id
 		};
 
-		return this.http.get(this.url.segments, {params: params});
+		return this.http.get(`${this.url.segments}?code=${code}`, {params: params});
 	}
 
 	getSegmentLeaderboard (item: IActivityItem): Observable<{}> {

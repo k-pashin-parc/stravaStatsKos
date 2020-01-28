@@ -30,10 +30,10 @@ function mainStatsRoute (app) {
 			res.json(exampleData.getData());
 		})
 		.get('/api/splits', function (req, res) {
-			stravaData.getSplits(res, req.query.id);
+			stravaData.getSplits(res, req.query.id, req.query.code);
 		})
 		.get('/api/segments', function (req, res) {
-			stravaData.getSegments(res, req.query.id);
+			stravaData.getSegments(res, req.query.id, req.query.code);
 		})
 		.get('/api/segmentLeaderboard', function (req, res) {
 			stravaData.getSegmentLeaderboard(res, req.query.id, req.query.distance);

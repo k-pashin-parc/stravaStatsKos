@@ -4,6 +4,7 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+import { CommonUtilitiesService } from './../common/utilities';
 import { ActivitiesService } from './activities.service';
 
 @Injectable()
@@ -21,12 +22,13 @@ export class ActivitiesDataService {
 
 	private code: string;
 
+	constructor(
+		private activitiesService: ActivitiesService,
+		private commonUtilitiesService: CommonUtilitiesService,
+	) { }
+
 	init () {
-		this.code = decodeURIComponent(
-			window.location.search.replace(
-				new RegExp('^(?:.*[&\\?]' + encodeURIComponent('code').replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'
-			)
-		);
+		this.code = this.getQueryStringKeyValue('code');
 
 		if (this.code) {
 			this.state.isLoading = true;
@@ -49,12 +51,7 @@ export class ActivitiesDataService {
 					})
 				);
 		} else {
-			// const redirect_url = 'http://localhost:4200/';
-			const redirect_url = 'https://stravastatskos.herokuapp.com/';
-			const client_id = 15224;
-			const url = `https://www.strava.com/oauth/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_url}&approval_prompt=force&scope=activity:read_all;write`;
-
-			window.location.assign(url);
+			this.commonUtilitiesService.redirectToAuth();
 		}
 	}
 
@@ -81,46 +78,65 @@ export class ActivitiesDataService {
 	}
 
 	getSplits (id: string): Observable<object> {
-		this.state.isLoading = true;
+		this.code = this.getQueryStringKeyValue('code');
 
-		return this.activitiesService
-			.getSplits(id)
-			.pipe(
-				map((response: object) => {
-					this.state.isLoading = false;
-					this.data.splits = response;
+		if (this.code) {
+			this.state.isLoading = true;
 
-					return response;
-				}),
-				catchError((error) => {
-					alert(error.error);
-					this.state.isLoading = false;
+			return this.activitiesService
+				.getSplits(id, this.code)
+				.pipe(
+					map((response: object) => {
+						this.state.isLoading = false;
+						this.data.splits = response;
+						this.code = null;
 
-					return throwError('Something gone wrong again.');
-				})
-			);
+						return response;
+					}),
+					catchError((error) => {
+						alert(error.error);
+						this.state.isLoading = false;
+
+						return throwError('Something gone wrong again.');
+					})
+				);
+		} else {
+			this.commonUtilitiesService.redirectToAuth(`splits/${id}`);
+		}
 	}
 
 	getSegments (id: string): Observable<object> {
-		this.state.isLoading = true;
+		this.code = this.getQueryStringKeyValue('code');
 
-		return this.activitiesService
-			.getSegments(id)
-			.pipe(
-				map((response: object) => {
-					this.state.isLoading = false;
-					this.data.segments = response as [];
+		if (this.code) {
+			this.state.isLoading = true;
 
-					return response;
-				}),
-				catchError((error) => {
-					alert(error.error);
-					this.state.isLoading = false;
+			return this.activitiesService
+				.getSegments(id, this.code)
+				.pipe(
+					map((response: object) => {
+						this.state.isLoading = false;
+						this.data.segments = response as [];
+						this.code = null;
 
-					return throwError('Something gone wrong again.');
-				})
-			);
+						return response;
+					}),
+					catchError((error) => {
+						alert(error.error);
+						this.state.isLoading = false;
+
+						return throwError('Something gone wrong again.');
+					})
+				);
+		} else {
+			this.commonUtilitiesService.redirectToAuth(`segments/${id}`);
+		}
 	}
 
-	constructor(private activitiesService: ActivitiesService) { }
+	private getQueryStringKeyValue (key): string {
+		const reg = new RegExp('[?&]' + key + '=([^&#]*)', 'i');
+		const string = reg.exec(window.location.href);
+
+		return string ? decodeURIComponent(string[1]) : null;
+	}
 }

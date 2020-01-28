@@ -9,7 +9,6 @@ const axios = require('axios');
 
 const config = require('../config');
 const exampleData = require('../strava/exampleData');
-const accessToken = config.accessToken;
 
 let activities;
 
@@ -288,11 +287,12 @@ function getActivities (params) {
 	});
 }
 
-function getSplits (res, id) {
-	getTokenPromise().then(function (response) {
+function getSplits (res, id, code) {
+	getTokenPromise(code).then(function (response) {
 		strava.activities.get({
 			access_token: response.data.access_token,
-			id: id
+			id,
+			code
 		}, function (err, payload) {
 			const detail = {
 				splits: []
@@ -340,11 +340,12 @@ function getSplits (res, id) {
 	});
 }
 
-function getSegments (res, id) {
-	getTokenPromise().then(function (response) {
+function getSegments (res, id, code) {
+	getTokenPromise(code).then(function (response) {
 		strava.activities.get({
 			access_token: response.data.access_token,
-			id: id
+			id,
+			code
 		}, function (err, payload) {
 			const detail = {
 				segments: []

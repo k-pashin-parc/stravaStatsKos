@@ -54,7 +54,7 @@
 								*ngFor='let additionalLink of field.additionalLinks;'
 							)
 								a.link(
-									routerLink='{{additionalLink.url}}/{{element.id}}'
+									'[href]'='getAdditionalLink(additionalLink.url, element.id)'
 									target='_blank'
 								) {{additionalLink.name}}
 

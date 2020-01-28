@@ -14,6 +14,7 @@ import {
 
 import { AddContentDirective } from './../../add_content/add_content.directive';
 import { FieldConfig } from './../../config/table.config';
+import { CommonUtilitiesService } from './../utilities';
 
 @Component({
 	selector: 'common-table',
@@ -35,6 +36,7 @@ export class TableComponent implements OnInit, OnChanges {
 
 	constructor (
 		private componentFactoryResolver: ComponentFactoryResolver,
+		private commonUtilitiesService: CommonUtilitiesService,
 	) {}
 
 	private displayedColumns;
@@ -90,5 +92,9 @@ export class TableComponent implements OnInit, OnChanges {
 			this.expandedItem = this.expandedItem === item ? null : item;
 			this.showData(item);
 		}
+	}
+
+	private getAdditionalLink (section: string, id: string): string {
+		return this.commonUtilitiesService.getRedirectUrl(`${section}/${id}`);
 	}
 }
