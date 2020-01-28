@@ -19,11 +19,11 @@ interface ISegmensListData {
 	templateUrl: './segments.pug',
 })
 export class SegmentsComponent {
-	private data: ISegmensListData;
-	private tableTitle;
-	private sectionName = 'Участки';
+	data: ISegmensListData;
+	tableTitle;
+	sectionName = 'Участки';
 
-	private segmentMode = {
+	segmentMode = {
 		values: [{
 			Id: 'all',
 			Name: 'Все'
@@ -33,14 +33,14 @@ export class SegmentsComponent {
 		}]
 	};
 
-	private expandableParams = {
+	expandableParams = {
 		component: SegmentDetailComponent,
 		getData: (item) => {
 			return this.activitiesService.getAllSegmentData(item);
 		},
 	};
 
-	private generalSegmentsFields: Array<FieldConfig> = [{
+	generalSegmentsFields: Array<FieldConfig> = [{
 		title: 'Название',
 		fieldName: 'name',
 	}, {
@@ -62,7 +62,7 @@ export class SegmentsComponent {
 		type: 'time'
 	}];
 
-	private mobileSegmentsFields: Array<FieldConfig> = [{
+	mobileSegmentsFields: Array<FieldConfig> = [{
 		title: 'Название',
 		fieldName: 'name',
 	}, {
@@ -81,7 +81,7 @@ export class SegmentsComponent {
 		type: 'time'
 	}];
 
-	private screenState: ScreeState;
+	screenState: ScreeState;
 
 	constructor(
 		private route: ActivatedRoute,

@@ -1,8 +1,9 @@
-import { DetailComponent } from './../../detail/detail.component';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { ActivitiesDataService } from './../../activities/activities.data.service';
-import { FieldConfig } from './../../config/table.config';
-import { DeviceService, ScreeState } from './../../common/device/device.service';
+import { DeviceService } from './../../common/device/device.service';
+import { CommonUtilitiesService } from './../../common/utilities';
+import { DetailComponent } from './../../detail/detail.component';
 
 interface SkiActivityType {
 	name: string;
@@ -17,7 +18,7 @@ interface SkiActivityType {
 })
 
 export class SkiDetailComponent extends DetailComponent {
-	private skiActivitiesTypes: Array<SkiActivityType> = [{
+	skiActivitiesTypes: Array<SkiActivityType> = [{
 		name: 'Заволга',
 		field: 'is_not_quick',
 		isSelected: true
@@ -32,7 +33,7 @@ export class SkiDetailComponent extends DetailComponent {
 	}];
 
 
-	protected filter (): void {
+	filter (): void {
 		const selectedFiltersKeys = this.skiActivitiesTypes
 			.filter(el => el.isSelected)
 			.map(el => el.field);
@@ -50,11 +51,13 @@ export class SkiDetailComponent extends DetailComponent {
 	constructor (
 		activitiesDataService: ActivitiesDataService,
 		deviceService: DeviceService,
+		commonUtilitiesService: CommonUtilitiesService,
 	) {
 		super(
 			'Ski',
 			activitiesDataService,
 			deviceService,
+			commonUtilitiesService
 		);
 	}
 }

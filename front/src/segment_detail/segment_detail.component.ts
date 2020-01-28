@@ -10,11 +10,10 @@ import { DeviceService, ScreeState } from '../common/device/device.service';
 	styleUrls: ['./segment_detail.component.sass'],
 })
 export class SegmentDetailComponent implements OnInit {
-	private data;
+	data;
+	defaultModeId = 'my';
 
-	private defaultModeId = 'my';
-
-	private generalAllFields: Array<FieldConfig> = [{
+	generalAllFields: Array<FieldConfig> = [{
 		title: 'Место',
 		fieldName: 'rank',
 	}, {
@@ -36,7 +35,7 @@ export class SegmentDetailComponent implements OnInit {
 		type: 'time',
 	}];
 
-	private generalMyFields: Array<FieldConfig> = [{
+	generalMyFields: Array<FieldConfig> = [{
 		title: 'Дата',
 		fieldName: 'date_display',
 		type: 'link',
@@ -56,10 +55,7 @@ export class SegmentDetailComponent implements OnInit {
 		type: 'time',
 	}];
 
-
-
-
-	private mobileAllFields: Array<FieldConfig> = [{
+	mobileAllFields: Array<FieldConfig> = [{
 		title: 'Место',
 		fieldName: 'rank',
 	}, {
@@ -78,7 +74,7 @@ export class SegmentDetailComponent implements OnInit {
 		type: 'time',
 	}];
 
-	private mobileMyFields: Array<FieldConfig> = [{
+	mobileMyFields: Array<FieldConfig> = [{
 		title: 'Дата',
 		fieldName: 'date_display',
 		type: 'link',
@@ -95,7 +91,7 @@ export class SegmentDetailComponent implements OnInit {
 		type: 'time',
 	}];
 
-	private leaderboarbModes = [{
+	leaderboarbModes = [{
 		id: 'all',
 		title: 'Все',
 	}, {
@@ -103,8 +99,8 @@ export class SegmentDetailComponent implements OnInit {
 		title: 'Только мои',
 	}];
 
-	private leaderboardSelectedMode = find(this.leaderboarbModes, {id: this.defaultModeId});
-	private screenState: ScreeState;
+	leaderboardSelectedMode = find(this.leaderboarbModes, {id: this.defaultModeId});
+	screenState: ScreeState;
 
 	constructor (
 		private deviceService: DeviceService,

@@ -4,7 +4,7 @@ import { FieldConfig } from './../config/table.config';
 import { clone, map } from 'lodash';
 
 export class SummaryComponent implements OnInit {
-	protected data;
+	data;
 
 	seasonsFields: Array<FieldConfig> = [{
 		title: 'Сезон',

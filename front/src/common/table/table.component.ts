@@ -22,15 +22,18 @@ import { CommonUtilitiesService } from './../utilities';
 	styleUrls: ['./table.component.sass'],
 })
 export class TableComponent implements OnInit, OnChanges {
+	@Input() title: string;
+	@Input() classes: string;
+	@Input() isWithoutSeconds: boolean;
+	@Input() expandableParams;
+	@Input() fields: FieldConfig[];
 	@Input() private data: {}[];
-	@Input() private fields: FieldConfig[];
-	@Input() private title: string;
-	@Input() private classes: string;
-	@Input() private isWithoutSeconds: boolean;
-	@Input() private expandableParams;
 
 	@ViewChild(MatSort) sort: MatSort;
-	@ViewChildren(AddContentDirective) addContentEls:QueryList<AddContentDirective>;
+	@ViewChildren(AddContentDirective) addContentEls: QueryList<AddContentDirective>;
+
+	displayedColumns;
+	dataSource: MatTableDataSource<{}>;
 
 	private expandedItem;
 
@@ -38,9 +41,6 @@ export class TableComponent implements OnInit, OnChanges {
 		private componentFactoryResolver: ComponentFactoryResolver,
 		private commonUtilitiesService: CommonUtilitiesService,
 	) {}
-
-	private displayedColumns;
-	private dataSource: MatTableDataSource<{}>;
 
 	ngOnInit () {
 		this.setDatasource();

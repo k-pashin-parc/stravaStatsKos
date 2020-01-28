@@ -19,12 +19,12 @@ interface MenuItems {
 })
 
 export class AppHeaderComponent implements OnInit {
-	private isShowSubmenu: boolean;
-	private selectedMenuItem: object;
-	private isHideMenu: boolean;
-	private title;
+	isShowSubmenu: boolean;
+	selectedMenuItem: object;
+	isHideMenu: boolean;
+	headerTitle: HeaderTitleService;
 
-	private menuItems: Array<MenuItems> = [
+	menuItems: Array<MenuItems> = [
 		{
 			Name: 'Лыжи',
 			Url: 'ski',
@@ -84,9 +84,11 @@ export class AppHeaderComponent implements OnInit {
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
-		private headerTitle: HeaderTitleService,
-		private deviceService: DeviceService
-	) {}
+		private deviceService: DeviceService,
+		headerTitle: HeaderTitleService
+	) {
+		this.headerTitle = headerTitle;
+	}
 
 	ngOnInit () {
 		const isMobile = this.deviceService.getScreenInfo().isMobile;

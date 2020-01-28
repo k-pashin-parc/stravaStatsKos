@@ -8,5 +8,9 @@ import { ActivitiesDataService } from './../activities/activities.data.service';
 	styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-	constructor(private activitiesDataService: ActivitiesDataService) { }
+	activitiesDataService: ActivitiesDataService;
+
+	constructor(activitiesDataService: ActivitiesDataService) {
+		this.activitiesDataService = activitiesDataService;
+	}
 }

@@ -1,10 +1,12 @@
 import { OnInit } from '@angular/core';
+
 import { ActivitiesDataService } from '../activities/activities.data.service';
 import { FieldConfig } from '../config/table.config';
 import { DeviceService, ScreeState } from '../common/device/device.service';
+import { CommonUtilitiesService } from 'src/common/utilities';
 
 export class DetailComponent implements OnInit {
-	protected data: {}[];
+	data: {}[];
 	protected originalData: {}[];
 
 	mobileFields: Array<FieldConfig> = [{
@@ -83,6 +85,7 @@ export class DetailComponent implements OnInit {
 		private activityType: string,
 		private activitiesDataService: ActivitiesDataService,
 		private deviceService: DeviceService,
+		private commonUtilitiesService: CommonUtilitiesService,
 	) { }
 
 	ngOnInit () {

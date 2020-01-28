@@ -20,7 +20,7 @@ interface BikeChartConfig {
 })
 
 export class BikeChartComponent implements OnInit {
-	private chart: BikeChartConfig = {
+	chart: BikeChartConfig = {
 		distance: {
 			data: [],
 			config: {},

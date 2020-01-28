@@ -10,9 +10,9 @@ import { ActivitiesDataService } from './../activities/activities.data.service';
 })
 
 export class SplitsComponent implements OnInit {
-	private splits: object[];
+	splits: object[];
 
-	private fields: Array<FieldConfig> = [{
+	fields: Array<FieldConfig> = [{
 		title: '№ п/п',
 		fieldName: 'index'
 	}, {

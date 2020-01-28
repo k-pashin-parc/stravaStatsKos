@@ -15,14 +15,15 @@ import { BikeSummaryComponent } from './../bike/summary/bike.summary.component';
 import { RunSummaryComponent } from 'src/run/summary/run.summary.component';
 import { RunChartComponent } from 'src/run/chart/run.chart.component';
 import { RunDetailComponent } from 'src/run/detail/run.detail.component';
-import { DefaultRouteCongif } from 'src/config/default_route.config';
 import { SegmentsComponent } from './../segments/segments.component';
+
+export const month = (new Date).getMonth() + 1;
 
 const routes: Routes = [
 	{
 		path: '',
 		pathMatch: 'full',
-		redirectTo: DefaultRouteCongif.route,
+		redirectTo: month >= 4 && month < 12 ? 'run' : 'ski',
 	},
 
 	// ski
