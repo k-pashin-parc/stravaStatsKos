@@ -7,6 +7,12 @@ function mainStatsRoute (app) {
 		.get('/', function (req, res) {
 			res.sendFile('/index.html');
 		})
+		.get('/segments', function (req, res) {
+			res.sendFile('/index.html');
+		})
+		.get('/splits', function (req, res) {
+			res.sendFile('/index.html');
+		})
 		.get('/api/summary', function (req, res) {
 			stravaData.init();
 
