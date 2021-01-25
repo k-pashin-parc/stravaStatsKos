@@ -51,7 +51,7 @@ export class ActivitiesDataService {
 					})
 				);
 		} else {
-			this.commonUtilitiesService.redirectToAuth();
+			this.commonUtilitiesService.redirectToAuth('/' + this.commonUtilitiesService.getDefaultRoute());
 		}
 	}
 

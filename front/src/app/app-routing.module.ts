@@ -21,7 +21,7 @@ const routes: Routes = [
 	{
 		path: '',
 		pathMatch: 'full',
-		redirectTo: ((new Date).getMonth() + 1) >= 4 && ((new Date).getMonth() + 1) < 12 ? 'run' : 'ski',
+		redirectTo: 'run',
 	},
 
 	// ski

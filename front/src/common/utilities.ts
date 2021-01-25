@@ -18,4 +18,16 @@ export class CommonUtilitiesService {
 	redirectToAuth (redirectSection = ''): void {
 		window.location.assign(this.getRedirectUrl(redirectSection));
 	}
+
+	getDefaultRoute (): string {
+		const date = new Date;
+		const month = date.getMonth() + 1;
+		let route = 'ski';
+
+		if (month >= 4 && month < 12) {
+			route = 'run';
+		}
+
+		return route;
+	}
 }
